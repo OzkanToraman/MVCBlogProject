@@ -1,0 +1,111 @@
+﻿@using MVC.Blog.DAL.Data
+@model IEnumerable<MediaUpload>
+
+
+<div class="kt-mainpanel">
+    <div class="kt-pagetitle">
+        <h5>Dosya Yöneticisi</h5>
+    </div><!-- kt-pagetitle -->
+    <div class="kt-pagebody">
+        <div class="content-wrapper">
+            <div class="content-left">
+                <a class="btn btn-default btn-block mg-b-20" href="/Admin/Media/Upload">Upload New File</a>
+                <label class="content-left-label">Dosyalara Göz At</label>
+                <ul class="nav mg-t-1-force">
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="icon ion-ios-folder-outline"></i>
+                            <span>Tüm Dosyalar</span>
+                        </a>
+                    </li><!-- nav-item -->
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="icon ion-ios-folder-outline"></i>
+                            <span>Son Eklenenler</span>
+                        </a>
+                    </li><!-- nav-item -->
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="icon ion-ios-folder-outline"></i>
+                            <span>Yeni Klasör</span>
+                        </a>
+                    </li><!-- nav-item -->
+                </ul>
+            </div><!-- content-left -->
+            <div class="content-body">
+                <div class="content-body-header">
+                    <div class="d-flex">
+                        <div class="btn-group mg-b-0 mg-r-10 hidden-lg-up">
+                            <button id="btnContentLeft" class="btn btn-secondary"><i class="icon ion-navicon-round tx-20"></i></button>
+                        </div><!-- btn-group -->
+                        <div class="content-checkall">
+                            <label class="ckbox mg-b-0">
+                                <input type="checkbox"><span></span>
+                            </label>
+                        </div>
+                        <div class="btn-group mg-b-0 hidden-xs-down">
+                            <button class="btn btn-secondary"><i class="icon ion-ios-box-outline tx-24"></i></button>
+                            <button class="btn btn-secondary disabled"><i class="icon ion-ios-trash-outline tx-20"></i></button>
+                            <button class="btn btn-secondary"><i class="icon ion-ios-pricetags-outline tx-20"></i></button>
+                        </div><!-- btn-group -->
+                    </div>
+                    <div class="mg-l-auto">
+                        <div class="btn-group mg-b-0">
+                            <button class="btn btn-secondary disabled"><i class="icon ion-ios-arrow-back tx-20"></i></button>
+                            <button class="btn btn-secondary"><i class="icon ion-ios-arrow-forward tx-20"></i></button>
+                        </div><!-- btn-group -->
+                        <div class="btn-group mg-b-0 mg-l-5">
+                            <button class="btn btn-secondary"><i class="icon ion-ios-gear-outline tx-20"></i></button>
+                        </div><!-- btn-group -->
+                    </div>
+                </div><!-- content-body-header -->
+                <table class="table table-striped mg-b-0 mg-t-20">
+                    <thead>
+                        <tr>
+                            <th class="wd-5p">
+                                <label class="ckbox mg-b-0">
+                                    <input type="checkbox"><span></span>
+                                </label>
+                            </th>
+                            <th>Name</th>
+                            <th class="hidden-xs-down">Modified</th>
+                            <th class="wd-5p"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td class="valign-middle">
+                                    <label class="ckbox mg-b-0">
+                                        <input type="checkbox"><span></span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <i class="icon ion-ios-folder-outline tx-24 tx-warning lh-0 valign-middle"></i>
+                                    <span class="pd-l-5">@item.Name</span>
+                                </td>
+                                <td class="hidden-xs-down">---</td>
+                                <td class="dropdown">
+                                    <a href="#" data-toggle="dropdown" class="btn pd-y-3 tx-gray-500 hover-info"><i class="icon ion-more"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-right pd-10">
+                                        <nav class="nav nav-style-1 flex-column">
+                                            <a href="" class="nav-link">Bilgi</a>
+                                            <a href="" class="nav-link">İndir</a>
+                                            <a href="" class="nav-link">Yeniden Adlandır</a>
+                                            <a href="" class="nav-link">Taşı</a>
+                                            <a href="" class="nav-link">Kopyala</a>
+                                            <a href="" class="nav-link">Sil</a>
+                                        </nav>
+                                    </div><!-- dropdown-menu -->
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div><!-- content-body -->
+        </div><!-- content-wrapper -->
+    </div><!-- kt-pagebody -->
+</div>

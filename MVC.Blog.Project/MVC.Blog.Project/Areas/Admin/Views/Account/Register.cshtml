@@ -1,0 +1,96 @@
+﻿@using System.Web.Optimization
+@{
+    Layout = null;
+}
+@using MVC.Blog.DAL.Data
+@model Kullanici
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="author" content="ThemePixels">
+
+    <title>Kayıt Sayfası</title>
+    @Styles.Render("~/bundlesLoginv2/styles")
+</head>
+<body>
+    <div class="row">
+
+            @if (ViewBag.Msg != null)
+            {
+                if (ViewBag.IsSuccess)
+                {
+                    <span class="alert alert-success">@ViewBag.Msg</span>
+                }
+                else
+                {
+                    <span class="alert alert-danger">@ViewBag.Msg</span>
+                }
+            }
+
+        </div>
+
+    @using (Html.BeginForm())
+    {
+
+        @Html.AntiForgeryToken()
+
+        <div class="signpanel-wrapper">
+            <div class="signbox signup">
+                <div class="signbox-header">
+                    <h4>Kayıt Ol</h4>
+                    <p class="mg-b-0">Kayıt olmak için aşağıdaki bilgileri eksiksiz giriniz.</p>
+                </div><!-- signbox-header -->
+                <div class="signbox-body">
+                    <div class="form-group">
+                        <label class="form-control-label">E-postanız:</label>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @type = "email", @placeholder = "E-postanızı giriniz" })
+                        <span class="text-danger">@Html.ValidationMessageFor(x => x.Email)</span>
+                    </div><!-- form-group -->
+                    <div class="row row-xs">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label class="form-control-label">Adınız:</label>
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @type = "text", @placeholder = "Adınızı giriniz" })
+                                <span class="text-danger">@Html.ValidationMessageFor(x => x.Name)</span>
+                            </div><!-- form-group -->
+                        </div><!-- col -->
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label class="form-control-label">Soyadınız:</label>
+                                @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @type = "text", @placeholder = "Soyadınızı giriniz" })
+                                <span class="text-danger">@Html.ValidationMessageFor(x => x.LastName)</span>
+                            </div><!-- form-group -->
+                        </div><!-- col -->
+                    </div><!-- row -->
+                    <div class="row row-xs">
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label class="form-control-label">Şifreniz:</label>
+                                @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @type = "password", @placeholder = "Şifrenizi giriniz" })
+                                <span class="text-danger">@Html.ValidationMessageFor(x => x.Password)</span>
+                            </div><!-- form-group -->
+                        </div><!-- col -->
+                        <div class="col-sm">
+                            <div class="form-group">
+                                <label class="form-control-label">Şifrenizi Doğrulayın:</label>
+                                @Html.TextBoxFor(x => x.PasswordConfirm, new { @class = "form-control", @type = "password", @placeholder = "Şifrenizi tekrar giriniz" })
+                                <span class="text-danger">@Html.ValidationMessageFor(x => x.PasswordConfirm)</span>
+                            </div><!-- form-group -->
+                        </div><!-- col -->
+                    </div><!-- row -->
+
+                    <input type="submit" class="btn btn-dark btn-block" value="Kayıt Ol" />
+
+                    <div class="tx-center bd pd-10 mg-t-40">Üye Misiniz? <a href="/Admin/Account/Login"> Giriş Sayfası</a></div>
+                </div><!-- signbox-body -->
+            </div><!-- signbox -->
+        </div><!-- signpanel-wrapper -->
+    }
+    @Scripts.Render("~/bundlesLoginv2/scripts")
+</body>
+</html>

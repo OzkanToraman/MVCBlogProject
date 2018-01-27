@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MVC.Blog.DAL.Data.Kullanici>
+
+<div class="kt-mainpanel">
+    <div class="kt-pagetitle">
+        <h5>Kategori Listele</h5>
+    </div><!-- kt-pagetitle -->
+    <div class="kt-pagebody">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Adı</th>
+                    <th scope="col">Soyadı</th>
+                    <th scope="col">E-Posta</th>
+                    <th scope="col">Şifre</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.Name</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Email</td>
+                        <td>@item.Password</td>
+                        <td><a href="/Admin/User/Guncelle/@item.Id" class="btn btn-primary btn-block">Güncelle</a></td>
+                        <td><a href="/Admin/User/Sil/@item.Id" class="btn btn-primary btn-block">Sil</a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

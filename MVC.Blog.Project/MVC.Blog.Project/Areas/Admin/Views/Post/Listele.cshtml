@@ -1,0 +1,39 @@
+﻿
+@model IEnumerable<MVC.Blog.DAL.Data.Post>
+
+<div class="kt-mainpanel">
+    <div class="kt-pagetitle">
+        <h5>Tüm Yazılar</h5>
+    </div><!-- kt-pagetitle -->
+    <div class="kt-pagebody">
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Başlık</th>
+                    <th scope="col">Özet</th>
+                    <th scope="col">Yayın Tarihi</th>
+                    <th scope="col">Durum</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.Title</td>
+                        <td>@item.Summary</td>
+                        <td>@item.PostDate</td>
+                        <td>@item.Status</td>
+                        <td><a href="/Admin/Post/Guncelle/@item.Id" class="btn btn-primary btn-block">Güncelle</a></td>
+                        <td><a href="/Admin/Post/Sil/@item.Id" class="btn btn-primary btn-block">Sil</a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>

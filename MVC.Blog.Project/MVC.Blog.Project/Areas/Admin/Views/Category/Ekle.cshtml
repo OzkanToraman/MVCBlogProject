@@ -1,0 +1,50 @@
+﻿@using MVC.Blog.DAL.Data
+@model Category
+
+
+<div class="kt-mainpanel">
+    <div class="kt-pagetitle">
+        <h5>Kategori Ekle</h5>
+    </div><!-- kt-pagetitle -->
+    <div class="kt-pagebody">
+
+        <div class="container">
+
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Kategori Adı:</label>
+                        @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @type = "text" })
+                        <span class="text-danger">@Html.ValidationMessageFor(x => x.Name)</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Açıklama</label>
+                        @Html.TextAreaFor(x => x.Description, 10, 100, new { @class = "form-control", @type = "text" })
+                    </div>
+                    <input type="submit" class="btn btn-primary btn-block" value="Kaydet" />
+                    <br />
+
+                    <div class="row">
+                        @if (ViewBag.Msg != null)
+                {
+                    if (ViewBag.Result)
+                    {
+                                <span class="alert alert-success">@ViewBag.Msg</span>
+                            }
+                            else
+                            {
+                                <span class="alert alert-danger">@ViewBag.Msg</span>
+                            }
+                        }
+
+                    </div>
+
+                </div>
+
+            }
+
+        </div>
+    </div>
+</div>

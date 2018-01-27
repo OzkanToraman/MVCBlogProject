@@ -1,0 +1,65 @@
+﻿@using System.Web.Optimization
+@using MVC.Blog.DAL.Data
+@{
+    Layout = null;
+}
+@model Kullanici
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
+    <meta name="author" content="ThemePixels">
+
+    <title>Giriş Sayfası</title>
+    @Styles.Render("~/bundlesLoginv2/styles")
+</head>
+<body>
+    @if (ViewBag.Msg != null)
+    {
+        if (ViewBag.IsSuccess)
+        {
+            <span class="alert alert-success">@ViewBag.Msg</span>
+        }
+        else
+        {
+            <span class="alert alert-danger">@ViewBag.Msg</span>
+        }
+    }
+    <div class="signpanel-wrapper">
+        <div class="signbox">
+            <div class="signbox-header">
+                <h4>Giriş Yap</h4>
+                @*<p class="mg-b-0">Responsive Bootstrap 4 Admin Template</p>*@
+            </div><!-- signbox-header -->
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <div class="signbox-body">
+                    <div class="form-group">
+                        <label class="form-control-label">E-postanız:</label>
+                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @type = "email", @placeholder = "E-posta adresinizi giriniz" })
+                        <span class="text-danger">@Html.ValidationMessageFor(x => x.Email)</span>
+                    </div><!-- form-group -->
+                    <div class="form-group">
+                        <label class="form-control-label">Şifreniz:</label>
+                        @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @type = "password", @placeholder = "Şifrenizi giriniz" })
+                        <span class="text-danger">@Html.ValidationMessageFor(x => x.Password)</span>
+                    </div><!-- form-group -->
+                    <div class="form-group">
+                        <label class="form-check-label">
+                            @Html.CheckBoxFor(x => x.RememberMe, new { @class = "form-check", @type = "checkbox" })Beni Hatırla
+                        </label>
+                    </div><!-- form-group -->
+                    <input type="submit" class="btn btn-dark btn-block" value="Giriş Yap" />
+                    <div class="tx-center bd pd-10 mg-t-40">Üye değil misiniz? <a href="/Admin/Account/Register">Yeni bir hesap oluşturun</a></div>
+                </div><!-- signbox-body -->
+            }
+        </div><!-- signbox -->
+    </div><!-- signpanel-wrapper -->
+    @Scripts.Render("~/bundlesLoginv2/scripts")
+</body>
+</html>
+

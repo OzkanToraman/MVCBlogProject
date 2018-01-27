@@ -1,0 +1,36 @@
+﻿@model IEnumerable<MVC.Blog.DAL.Data.Category>
+
+<div class="kt-mainpanel">
+    <div class="kt-pagetitle">
+        <h5>Kategori Listele</h5>
+    </div><!-- kt-pagetitle -->
+    <div class="kt-pagebody">
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Kategori Adı</th>
+                    <th scope="col">Açıklama</th>
+                    <th scope="col">Konu Sayısı</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">@item.Id</th>
+                        <td>@item.Name</td>
+                        <td>@item.Description</td>
+                        <td>@item.PostCount</td>
+                        <td><a href="/Admin/Category/Guncelle/@item.Id" class="btn btn-primary btn-block">Güncelle</a></td>
+                        <td><a href="/Admin/Category/Sil/@item.Id" class="btn btn-primary btn-block">Sil</a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
