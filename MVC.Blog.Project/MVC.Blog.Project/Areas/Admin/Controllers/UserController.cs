@@ -23,11 +23,82 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 _uow
                 .GetRepo<Kullanici>()
                 .Where(x => x.IsDeleted == false);
-                
+
             return View(model);
         }
 
         public ActionResult Ekle()
+        {
+            RolFill();
+
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Ekle(Kullanici model)
+        {
+            if (model != null)
+            {
+                model.ProfilPic = "/Media/Images/c3c5c1df-0964-4c38-820e-7412187c7117.jpg";
+                _uow.GetRepo<Kullanici>()
+                    .Add(model);
+                _uow.Commit();
+                return RedirectToAction("Listele", "User");
+            }
+            ViewBag.Msg = "Zorunlu alanları doldurunuz!";
+            return View();
+        }
+
+        public ActionResult Guncelle(int id)
+        {
+            Kullanici model = _uow
+                .GetRepo<Kullanici>()
+                .Where(x => x.Id == id)
+                .FirstOrDefault();
+            RolFill();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Guncelle(UserUpdateModel model)
+        {
+            if (model.kullanici != null)
+            {
+                if (model.ProfilePic != null)
+                {
+                    #region UploadPhotoSaveToDatabase
+                    MediaUpload m = new MediaUpload();
+                    m = UploadSaveToDatabase(model.ProfilePic);
+                    _uow.GetRepo<MediaUpload>()
+                        .Add(m);
+                    _uow.Commit();
+                    #endregion
+                    model.kullanici.ProfilPic = m.Path.ToString();
+                }
+
+                _uow.GetRepo<Kullanici>()
+                    .Update(model.kullanici);
+                if (_uow.Commit() > 0)
+                {
+                    return RedirectToAction("Listele", "User");
+                }
+            }
+            return RedirectToAction("Listele", "User");
+        }
+
+        public ActionResult Sil(int id)
+        {
+            _uow.GetRepo<Kullanici>()
+                .Where(x => x.Id == id)
+                .FirstOrDefault()
+                .IsDeleted = true;
+            _uow.Commit();
+            return Redirect("Listele");
+        }
+
+        void RolFill()
         {
             #region ComboboxRolDoldur
             IEnumerable<Role> model = _uow
@@ -44,57 +115,20 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 });
             }
             ViewBag.Roller = rolList;
-            TempData["roller"] = rolList;
             #endregion
 
-            return View();
         }
-
-        [HttpPost][ValidateAntiForgeryToken]
-        public ActionResult Ekle(Kullanici model)
+        MediaUpload UploadSaveToDatabase(HttpPostedFileBase img)
         {
-
-            _uow.GetRepo<Kullanici>()
-                .Add(model);
-            _uow.Commit();
-            return RedirectToAction("Listele","User");
-        }
-
-        public ActionResult Guncelle(int id)
-        {
-            Kullanici model = _uow
-                .GetRepo<Kullanici>()
-                .Where(x => x.Id == id)
-                .FirstOrDefault();
-            ViewBag.Roller2 = TempData["roller"];
-            return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult Guncelle(UserUpdateModel model)
-        {
-            #region UploadPhotoSaveToDatabase
             string uniqueFileName = Guid.NewGuid().ToString();
-            string extention = Path.GetExtension(model.ProfilePic.FileName);
+            string extention = Path.GetExtension(img.FileName);
             string fullFileName = HttpContext.Server.MapPath("/Media/Images/" + uniqueFileName + extention);
-            model.ProfilePic.SaveAs(fullFileName);
+            img.SaveAs(fullFileName);
             MediaUpload upload = new MediaUpload();
             upload.Name = uniqueFileName + extention;
             upload.Path = "/Media/Images/" + uniqueFileName + extention;
-            _uow.GetRepo<MediaUpload>()
-                .Add(upload);
-            _uow.Commit();
-            #endregion
 
-            model.kullanici.ProfilPic = "/Media/Images/" + uniqueFileName + extention;
-
-            _uow.GetRepo<Kullanici>()
-                .Update(model.kullanici);
-            if (_uow.Commit()>0)
-            {
-                return Redirect("Listele");
-            }
-            return View();
+            return upload;
         }
     }
 }

@@ -21,6 +21,8 @@ namespace MVC.Blog.DAL.Context
         public virtual DbSet<Post> Post { get; set; }
         public virtual DbSet<Role> Role { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<About> About { get; set; }
+        public virtual DbSet<Contact> Contact { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -50,11 +52,6 @@ namespace MVC.Blog.DAL.Context
             modelBuilder.Entity<Post>()
                 .HasMany(e => e.Comments)
                 .WithRequired(e => e.Post)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Status>()
-                .HasMany(e => e.Post)
-                .WithRequired(e => e.Status)
                 .WillCascadeOnDelete(false);
         }
     }

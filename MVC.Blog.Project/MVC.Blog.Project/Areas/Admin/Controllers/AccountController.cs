@@ -66,7 +66,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 if (loginUser != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index","Home");
                 }
                 else
                 {

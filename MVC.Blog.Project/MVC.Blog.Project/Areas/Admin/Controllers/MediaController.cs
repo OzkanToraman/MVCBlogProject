@@ -20,7 +20,8 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         {
             var model =
                 _uow.GetRepo<MediaUpload>()
-                .GetList();
+                .GetList()
+                .OrderByDescending(x => x.Id);
             return View(model);
         }
 

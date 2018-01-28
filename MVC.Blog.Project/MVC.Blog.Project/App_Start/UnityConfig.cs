@@ -55,6 +55,7 @@ namespace MVC.Blog.Project
             container.RegisterType<IEncryptor, Encryptor>();
             container.RegisterType<IMailMessage, MailMessage>();
             container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IUploadSave, UploadSave>();
         }
     }
 }

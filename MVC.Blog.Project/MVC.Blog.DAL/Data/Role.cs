@@ -7,7 +7,7 @@ namespace MVC.Blog.DAL.Data
     using System.Data.Entity.Spatial;
 
     [Table("Role")]
-    public partial class Role:EntityBase
+    public partial class Role :EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()

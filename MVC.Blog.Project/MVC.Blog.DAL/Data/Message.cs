@@ -7,7 +7,7 @@ namespace MVC.Blog.DAL.Data
     using System.Data.Entity.Spatial;
 
     [Table("Message")]
-    public partial class Message:EntityBase
+    public partial class Message :EntityBase
     {
         public int Id { get; set; }
 
@@ -25,6 +25,9 @@ namespace MVC.Blog.DAL.Data
         public bool IsDeleted { get; set; }
 
         public bool IsRead { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Email { get; set; }
 
         public virtual Kullanici Kullanici { get; set; }
     }

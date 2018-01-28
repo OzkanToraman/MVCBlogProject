@@ -6,7 +6,7 @@ namespace MVC.Blog.DAL.Data
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Comments:EntityBase
+    public partial class Comments :EntityBase
     {
         public int Id { get; set; }
 

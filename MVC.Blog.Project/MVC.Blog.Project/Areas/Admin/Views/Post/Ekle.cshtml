@@ -8,39 +8,53 @@
         <h5>Gönderi Oluştur</h5>
     </div><!-- kt-pagetitle -->
     <div class="kt-pagebody">
+
+        @if (ViewBag.Msg != null)
+        {
+            if (ViewBag.IsSuccess)
+            {
+                <span class="alert alert-success">@ViewBag.Msg</span>
+            }
+            else
+            {
+                <span class="alert alert-danger">@ViewBag.Msg</span>
+            }
+        }
+
         @using (Html.BeginForm("Ekle", "Post", FormMethod.Post, new { @enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
 
             <div class="card pd-20 pd-sm-40 mg-t-40">
-                <h6>Kategori:</h6>
+                <h6>Kategori:<span class="tx-danger">*</span></h6>
                 @Html.DropDownListFor(x => x.Post.CategoryId, new SelectList(ViewBag.Kategoriler, "Value", "Text"), "Kategori Seçiniz", new { @class = "form-input" })
                 <span class="text-danger">@Html.ValidationMessageFor(x => x.Post.CategoryId)<span>
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
-                <h6>Başlık:</h6>
+                <h6>Başlık:<span class="tx-danger">*</span></h6>
                 @Html.TextBoxFor(x => x.Post.Title, new { @class = "form-input", @placeholder = "Yazı başlığı" })
                 <span class="text-danger">@Html.ValidationMessageFor(x => x.Post.Title)</span>
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
-                <h6>İçerik:</h6>
+                <h6>İçerik:<span class="tx-danger">*</span></h6>
                 @Html.TextAreaFor(x => x.Post.PostBody, new { @class = "form-input", @id = "summernote", @placeholder = "Gönderi açıklaması giriniz..." })
                 <span class="text-danger">@Html.ValidationMessageFor(x => x.Post.PostBody)</span>
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
                 <h6>Açıklama:</h6>
-                @Html.TextAreaFor(x => x.Post.Description,10,50, new { @class = "form-input", @id = "summernote", @placeholder = "Yazı başlığı" })
+                @Html.TextAreaFor(x => x.Post.Description, 10, 50, new { @class = "form-input", @placeholder = "Yazı açıklaması" })
                 <span class="text-danger">@Html.ValidationMessageFor(x => x.Post.Description)</span>
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
-                <h6>Fotoğraf:</h6>
+                <h6>Fotoğraf:<span class="tx-danger">*</span></h6>
                 @*@Html.TextBox("Files",null, new { @type = "file", @multiple = true })*@
-                <input type="file" name="PostedPic" accept="image/jpeg"/>
+                <input type="file" name="PostedPic" accept="image/jpeg" />
+                <span class="text-danger">@Html.ValidationMessageFor(x => x.PostedPic)</span>
                 <br />
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
                 <h6>Etiketler:</h6>
-                @Html.TextBoxFor(x => x.Post.Tags, new { @class = "bootstrap-tagsinput", @placeholder = "Yazı başlığı", @type="text", @data_role="tagsinput"})
+                @Html.TextBoxFor(x => x.Post.Tags, new { @class = "bootstrap-tagsinput", @type = "text", @data_role = "tagsinput" })
                 @*<input type="text" name="Tags" class="bootstrap-tagsinput" data-role="tagsinput" />*@
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">

@@ -5,7 +5,7 @@
         <h5>Profil Düzenle</h5>
     </div><!-- kt-pagetitle -->
 
-    @using (Html.BeginForm("Listele","User",FormMethod.Post,new { @enctype = "multipart/form-data" }))
+    @using (Html.BeginForm("Listele", "User", FormMethod.Post, new { @enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         <div class="kt-pagebody">
@@ -14,11 +14,9 @@
                     <label class="content-left-label">Profil Fotoğrafı</label>
                     <figure class="edit-profile-photo">
                         <img src="/Media/Images/img11.jpg" class="img-fluid" alt="">
-                        <figcaption>
-                            <input type="file" name="ProfilePic" />
-                        </figcaption>
+                        <input type="file" class="img-fluid" accept="image/jpeg" />
                     </figure>
-
+                    @*<button type="button" onclick="SavePic()" class="btn btn-primary">Yükle</button>*@
                 </div><!-- col-3 -->
                 <div class="col-md-8">
                     <div class="form-horizontal">
@@ -84,7 +82,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Rol:</label>
                             <div class="col-md-10">
-                                @Html.DropDownListFor(x => x.RoleId, new SelectList(ViewBag.Roller2,"Value","Text"), new { @class = "form-control" })
+                                @Html.DropDownListFor(x => x.RoleId, new SelectList(ViewBag.Roller, "Value", "Text"), new { @class = "form-control" })
                             </div>
                         </div>
 

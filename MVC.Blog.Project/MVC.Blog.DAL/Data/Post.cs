@@ -7,7 +7,7 @@ namespace MVC.Blog.DAL.Data
     using System.Data.Entity.Spatial;
 
     [Table("Post")]
-    public partial class Post:EntityBase
+    public partial class Post :EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Post()
@@ -26,25 +26,23 @@ namespace MVC.Blog.DAL.Data
 
         public DateTime PostDate { get; set; }
 
-        [Required]
         public string Description { get; set; }
 
         public int UserId { get; set; }
 
         public int CategoryId { get; set; }
 
-        [Required]
         [StringLength(200)]
         public string Summary { get; set; }
 
         public bool IsDeleted { get; set; }
 
-        public int? LikeCount { get; set; }
+        public int LikeCount { get; set; }
 
         [StringLength(25)]
         public string Tags { get; set; }
 
-        public int StatusId { get; set; }
+        public int? StatusId { get; set; }
 
         public string PostPic { get; set; }
 

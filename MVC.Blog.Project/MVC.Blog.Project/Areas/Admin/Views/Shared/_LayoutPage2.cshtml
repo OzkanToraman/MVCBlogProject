@@ -29,7 +29,7 @@
         <label class="kt-sidebar-label">Navigation</label>
         <ul class="nav kt-sideleft-menu">
             <li class="nav-item">
-                <a href="index.html" class="nav-link">
+                <a href="/Admin/Account/Dashboard/Home" class="nav-link">
                     <i class="fa fa-lg fa-dashboard"></i>
                     <span>Dashboard</span>
                 </a>
@@ -53,13 +53,17 @@
                     <li class="nav-item"><a href="/Admin/Category/Listele" class="nav-link">Tüm Kategoriler</a></li>
                     <li class="nav-item"><a href="/Admin/Category/Ekle" class="nav-link">Kategori Ekle</a></li>
                 </ul>
-            </li><!-- nav-item -->
             <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="" class="nav-link with-sub">
                     <i class="fa fa-fw fa-pagelines"></i>
                     <span>Sayfalar</span>
                 </a>
-                <ul class="nav-sub"></ul>
+                <ul class="nav-sub">
+                    <li class="nav-item"><a href="" class="nav-link">Anasayfa</a></li>
+                    <li class="nav-item"><a href="" class="nav-link">Gönderi</a></li>
+                    <li class="nav-item"><a href="" class="nav-link">Hakkında</a></li>
+                    <li class="nav-item"><a href="" class="nav-link">İletişim</a></li>
+                </ul>
             </li><!-- nav-item -->
             <li class="nav-item">
                 <a href="" class="nav-link with-sub">
@@ -175,12 +179,9 @@
                 </a>
                 <div class="dropdown-menu wd-200">
                     <ul class="list-unstyled user-profile-nav">
-                        <li><a href=""><i class="icon ion-ios-person-outline"></i> Edit Profile</a></li>
-                        <li><a href=""><i class="icon ion-ios-gear-outline"></i> Settings</a></li>
-                        <li><a href=""><i class="icon ion-ios-download-outline"></i> Downloads</a></li>
-                        <li><a href=""><i class="icon ion-ios-star-outline"></i> Favorites</a></li>
-                        <li><a href=""><i class="icon ion-ios-folder-outline"></i> Collections</a></li>
-                        <li><a href="/Admin/Account/LogOut"><i class="icon ion-power"></i> Sign Out</a></li>
+                        <li><a href=""><i class="icon ion-ios-person-outline"></i>Profil Düzenle</a></li>
+                        <li><a href=""><i class="icon ion-ios-gear-outline"></i> Ayarlar</a></li>
+                        <li><a href="/Admin/Account/LogOut"><i class="icon ion-power"></i>Çıkış</a></li>
                     </ul>
                 </div><!-- dropdown-menu -->
             </div><!-- dropdown -->
@@ -188,7 +189,7 @@
     </div><!-- kt-headpanel -->
     <div class="kt-breadcrumb">
         <nav class="breadcrumb">
-            <a class="breadcrumb-item" href="#">Anasayfa</a>
+            <a class="breadcrumb-item" href="/Admin/Account/Dashboard/Home">Anasayfa</a>
 
         </nav>
     </div><!-- kt-breadcrumb -->

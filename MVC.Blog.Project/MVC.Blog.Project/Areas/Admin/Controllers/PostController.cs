@@ -8,12 +8,15 @@ using MVC.Blog.DAL.Data;
 using MVC.Blog.BLL.Validations.PostValidations;
 using System.IO;
 using MVC.Blog.DAL.Model;
+using MVC.Blog.BLL.Services.Abstract;
+using System.Threading.Tasks;
 
 namespace MVC.Blog.Project.Areas.Admin.Controllers
 {
     public class PostController : BaseController
     {
         bool IsSuccess;
+        IEnumerable<string> tags = new List<string>();
 
         public PostController(IUnitOfWork uow) : base(uow)
         {
@@ -22,11 +25,11 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         // GET: Admin/Post
         public ActionResult Listele()
         {
-            IEnumerable<Post> model = 
+            IEnumerable<Post> model =
                 _uow
                 .GetRepo<Post>()
-                .Where(x => x.IsDeleted==false);
-
+                .Where(x => x.IsDeleted == false);
+            CategoryFill();
             return View(model);
         }
 
@@ -35,57 +38,64 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             IEnumerable<Category> model = _uow.GetRepo<Category>()
                 .Where(x => x.IsDeleted == false);
 
-            #region CategoryCombobox
-            List<SelectListItem> cList = new List<SelectListItem>();
-            foreach (var item in model)
-            {
-                cList.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.Id.ToString()
-                });
-            }
-            ViewBag.Kategoriler = cList;
-            #endregion
-
+            CategoryFill();
             return View();
         }
 
-        [HttpPost][ValidateAntiForgeryToken][ValidateInput(false)]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Ekle(PostViewModel model)
         {
 
-            #region UploadPhotoSaveToDatabase
-            string uniqueFileName = Guid.NewGuid().ToString();
-            string extention      = Path.GetExtension(model.PostedPic.FileName);
-            string fullFileName   = HttpContext.Server.MapPath("~/Media/Images/" + uniqueFileName + extention);
-            model.PostedPic.SaveAs(fullFileName);
-            MediaUpload upload = new MediaUpload();
-            upload.Name = uniqueFileName + extention;
-            upload.Path = "~/Media/Images/" + uniqueFileName + extention;
-            _uow.GetRepo<MediaUpload>()
-                .Add(upload);
-            _uow.Commit();
-            #endregion
+            if (model.PostedPic != null)
+            {
+                #region UploadPhotoSaveToDatabase    
+                MediaUpload upload = new MediaUpload();
+                upload = UploadSaveToDatabase(model.PostedPic);
+                _uow.GetRepo<MediaUpload>()
+                    .Add(upload);
+                _uow.Commit();
+                model.Post.PostPic = upload.Path.ToString();
+                #endregion
+            }
 
-            char[] separators = { ',', '.', '!', '?', ';', ':', ' ' };
-            string[] tags = model.Post.Tags.Split(separators);
+            if (model.Post.Tags != null)
+            {
+                char[] separators = { ',', '.', '!', '?', ';', ':', ' ' };
+                tags = model.Post.Tags.Split(separators);
+            }
 
-            bool IsSuccess = false;
+            IsSuccess = false;
             var validator = new PostAddValidator().Validate(model.Post);
             if (validator.IsValid)
             {
-                
-                _uow.GetRepo<Post>().Add(model.Post);
-                if (_uow.Commit()>0)
+                if (tags != null)
+                {
+                    foreach (var item in tags)
+                    {
+                        model.Post.Tags = item.ToString();
+                    }
+                }
+                model.Post.PostDate = DateTime.Now;
+                _uow.GetRepo<Post>()
+                    .Add(model.Post);
+
+                #region KategoriGönderiSayısıKontrol
+                int postCount = _uow.GetRepo<Category>()
+                            .GetById(model.Post.CategoryId)
+                            .PostCount++;
+                #endregion
+
+                if (_uow.Commit() > 0)
                 {
                     IsSuccess = true;
-                    ViewBag.Result = IsSuccess;
+                    ViewBag.IsSuccess = IsSuccess;
                     ViewBag.Msg = "Yazı başarıyla eklendi.";
                 }
                 else
                 {
-                    ViewBag.Result = IsSuccess;
+                    ViewBag.IsSuccess = IsSuccess;
                     ViewBag.Msg = "Yazı kaydedilirken bir hata oluştu!";
                 }
             }
@@ -93,7 +103,6 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             {
                 validator.Errors.ToList().ForEach(x => ModelState.AddModelError(x.PropertyName, x.ErrorMessage));
             }
-            
             return View();
         }
 
@@ -103,22 +112,118 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 .GetRepo<Post>()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
-
+            CategoryFill();
+            StatusFill();
             return View(model);
         }
 
-        [HttpPost][ValidateAntiForgeryToken]
-        public ActionResult Guncelle(Post model)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
+        public ActionResult Guncelle(PostViewModel model)
         {
-            _uow.GetRepo<Post>()
-                .Update(model);
-            if (_uow.Commit()>0)
+            if (model.Post != null)
             {
-                return RedirectToAction("Listele", "Post");
+                if (model.PostedPic != null)
+                {
+                    MediaUpload m = new MediaUpload();
+                    m = UploadSaveToDatabase(model.PostedPic);
+                    _uow.GetRepo<MediaUpload>()
+                            .Add(m);
+                    model.Post.PostPic = m.Path.ToString();
+                }
+                _uow.GetRepo<Post>()
+                    .Update(model.Post);
+                if (_uow.Commit() > 0)
+                {
+                    return RedirectToAction("Listele","Post");
+                }
             }
-            return View();
+            return RedirectToAction("Listele","Post");
         }
 
+        public ActionResult Sil(int id)
+        {
+            var sorgu = _uow.GetRepo<Post>()
+                .GetById(id);
+            sorgu.IsDeleted = true;
 
+            #region SilinenGönderiyeGöreKategoriSayısıDüzenle
+            _uow.GetRepo<Category>()
+                    .GetById(sorgu.CategoryId)
+                    .PostCount--;
+            #endregion
+
+            _uow.Commit();
+            return RedirectToAction("Listele","Post");
+        }
+
+        void CategoryFill()
+        {
+            #region CategoryCombobox
+            IEnumerable<Category> catmodel = _uow.GetRepo<Category>()
+                .Where(x => x.IsDeleted == false);
+
+            List<SelectListItem> cList = new List<SelectListItem>();
+            foreach (var item in catmodel)
+            {
+                cList.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.Id.ToString()
+                });
+            }
+            ViewBag.Kategoriler = cList;
+            TempData["cat"] = cList;
+            #endregion
+        }
+        void StatusFill()
+        {
+            #region StatusCombobox
+            IEnumerable<Status> statusmodel = _uow.GetRepo<Status>()
+                .GetList();
+
+            List<SelectListItem> statusList = new List<SelectListItem>();
+            foreach (var item in statusmodel)
+            {
+                statusList.Add(new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.Id.ToString()
+                });
+            }
+            ViewBag.Durum = statusList;
+            #endregion
+        }
+        void RoleFill()
+        {
+            #region StatusCombobox
+            IEnumerable<Role> rolemodel = _uow.GetRepo<Role>()
+                .GetList();
+
+            List<SelectListItem> roleList = new List<SelectListItem>();
+            foreach (var item in rolemodel)
+            {
+                roleList.Add(new SelectListItem
+                {
+                    Text = item.RoleName,
+                    Value = item.Id.ToString()
+                });
+            }
+            ViewBag.Durum = roleList;
+            #endregion
+        }
+        MediaUpload UploadSaveToDatabase(HttpPostedFileBase img)
+        {
+            string uniqueFileName = Guid.NewGuid().ToString();
+            string extention = Path.GetExtension(img.FileName);
+            string fullFileName = HttpContext.Server.MapPath("/Media/Images/" + uniqueFileName + extention);
+            img.SaveAs(fullFileName);
+            MediaUpload upload = new MediaUpload();
+            upload.Name = uniqueFileName + extention;
+            upload.Path = "/Media/Images/" + uniqueFileName + extention;
+
+            return upload;
+        }
     }
 }

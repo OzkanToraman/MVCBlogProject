@@ -7,7 +7,7 @@ namespace MVC.Blog.DAL.Data
     using System.Data.Entity.Spatial;
 
     [Table("Kullanici")]
-    public partial class Kullanici:EntityBase
+    public partial class Kullanici :EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Kullanici()
@@ -37,19 +37,19 @@ namespace MVC.Blog.DAL.Data
         [Required]
         public string PasswordConfirm { get; set; }
 
-        public string Hakkimda { get; set; }
-
         public bool IsDeleted { get; set; }
 
         public bool IsAccepted { get; set; }
-
-        public bool RememberMe { get; set; }
 
         public string ProfilPic { get; set; }
 
         public string Kod { get; set; }
 
         public int? RoleId { get; set; }
+
+        public bool RememberMe { get; set; }
+
+        public string Hakkimda { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comments> Comments { get; set; }

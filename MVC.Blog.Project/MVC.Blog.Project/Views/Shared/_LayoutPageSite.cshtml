@@ -1,0 +1,106 @@
+﻿@using System.Web.Optimization
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <!-- Meta tags -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Moments | wordpress blog theme for creatives,bloggers,readers">
+    <meta name="keywords" content="Moments, Responsive Template ,OnePage Template,Moments OnePage Template">
+    <meta name="author" content="Theme-Smile">
+    <meta name="copyright" content="Theme-Smile">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+
+    <title>@ViewBag.Title</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7COpen+Sans:400,400i%7CPoiret+One" rel="stylesheet">
+@Styles.Render("~/bundlesSite/styles")
+@RenderSection("styles",false)
+
+</head>
+<body>
+
+    <!-- Index Page -->
+    <!-- Header -->
+
+    <header class="top-header">
+        <!-- top Menu -->
+        <div class="container">
+            <nav>
+                <div class="header-socialicons">
+                    <a href="#">
+                        <span class="icon-facebook"></span>
+                    </a>
+                    <a href="#">
+                        <span class="icon-instagram"></span>
+                    </a>
+                    <a href="#">
+                        <span class="icon-gplus"></span>
+                    </a>
+                    <a href="#">
+                        <span class="icon-linkedin"></span>
+                    </a>
+                    <a href="#">
+                        <span class="icon-pinterest"></span>
+                    </a>
+                </div>
+                <div class="search-part">
+                    <input type="text" name="searchtxt" id="searchtxt" placeholder="Arama Yap ...">
+                    <a href="#" id="showsearch">
+                        <span class="icon-search"></span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- /.End Top Menu -->
+        <!-- Master Menu -->
+
+        <nav class="navbar master-menu">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="/Home/Index/">ANASAYFA</a>
+                        </li>
+                        <li><a href="/Home/About/">HAKKIMDA</a></li>
+                        <li><a href="/Home/Contact/">İLETİŞİM</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        @RenderSection("slider",false)
+        <!-- /.Master Menu -->
+    </header>
+    <!-- /. End Header -->
+    <div class="main-part">
+        <div class="container">
+            <div class="row">
+                @RenderBody()
+                </div>
+            </div>
+        </div>
+            <!-- Footer -->
+            <footer class="last-footer">
+                <!-- Footer Logo -->
+       
+                <!-- /.End Footer Logo -->
+
+            </footer>
+            <!-- /.End Footer -->
+            <!-- /. End Index Page -->
+            @Scripts.Render("~/bundlesSite/scripts")
+            @RenderSection("scripts", false)
+</body>
+</html>

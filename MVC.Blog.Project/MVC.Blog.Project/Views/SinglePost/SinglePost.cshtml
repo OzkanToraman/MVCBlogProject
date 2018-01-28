@@ -1,0 +1,144 @@
+﻿@using MVC.Blog.DAL.Model
+@model SiteHomeViewModel
+
+
+<div class="main-part">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-sm-9">
+                <div class="main-content singlepost">
+                    <article>
+                        <header>
+                            <a href="#"><span class="tag">@Model.Gonderi.Tags</span></a>
+                            <a href="#"><h2 class="title">@Model.Gonderi.Title</h2></a>
+                        </header>
+                        <div class="main-text">
+                            <img class="img-responsive" src="@Model.Gonderi.PostPic" alt="posts">
+                            
+                            @Html.Raw(Model.Gonderi.PostBody)
+
+                        </div>
+                        <footer>
+                            <span class="date-author"><i>@Model.Gonderi.PostDate</i><a href="#">@Model.Gonderi.Kullanici.Role.RoleName</a></span>
+                            <span class="socialicons-post">
+                                <a href="#">
+                                    <span class="icon-facebook"></span>
+                                </a>
+                            </span>
+                        </footer>
+                    </article>
+                    <div class="comments">
+                        <h2>3 Comments</h2>
+                        <div class="comment">
+                            <div class="img">
+                                <img src="/Content/Site/Images/aboutme.jpg" alt="post" class="img-responsive img-circle">
+                            </div>
+                            <div class="text">
+                                <span>admin</span><a href="#">replay</a><br>
+                                <i>December 11, 2015 at 8:45 pm</i>
+                                <p>Selfies iPhone Kickstarter, drinking vinegar jean shorts fixie consequat flexitarian four loko pop-up artisan sunt. Deep v cliche lomo biodiesel Neutra selfies.</p>
+                            </div>
+                            <div class="child">
+                                <div class="comment">
+                                    <div class="img">
+                                        <img src="/Content/Site/Images/aboutme.jpg" alt="post" class="img-responsive img-circle">
+                                    </div>
+                                    <div class="text">
+                                        <span>admin</span><a href="#">replay</a><br>
+                                        <i>December 11, 2015 at 8:46 pm</i>
+                                        <p>i totally agree with you</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="comment">
+                            <div class="img">
+                                <img src="/Content/Site/Images/aboutme.jpg" alt="post" class="img-responsive img-circle">
+                            </div>
+                            <div class="text">
+                                <span>admin</span><a href="#">replay</a><br>
+                                <i>December 11, 2015 at 8:47 pm</i>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae aspernatur expedita cumque vero, officia, quia ad? Qui tempore magni quo ea provident praesentium tempora voluptatum harum, numquam iste debitis aspernatur unde ipsum quae velit. Porro maxime ut totam ullam nostrum iste aut in qui eveniet nisi, omnis nihil cupiditate quisquam.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leaveraplay">
+                        <h5>YORUM YAZ</h5>
+                        <form action="#" method="post">
+                            <textarea name="subject" id="subject"></textarea>
+                            <label for="Name">Ad *</label>
+                            <input type="text" name="Name" id="Name" required>
+                            <label for="Email">E-posta *</label>
+                            <input type="text" name="Email" id="Email">
+                            <button type="submit" id="sbmbtn" name="sbmbtn">YORUMLA</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /. End Main Content -->
+            <!-- Sidebar -->
+            <div class="col-sm-3">
+                <aside class="sidebar">
+                    <div class="widget aboutme">
+                        <h3>HAKKIMDA</h3>
+                        <div class="main-content">
+                            <img class="img-circle img-responsive" src="/Content/Site/Images/aboutme.jpg" alt="about">
+                            <span>John Doe</span>
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, dolor! At architecto, culpa cum rerum
+                                <a href="#">readmore...</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="widget categories">
+                        <h3>KATEGORİLER</h3>
+                        <div class="main-content">
+                            @foreach (var item in Model.Kategoriler)
+                            {
+                                <ul>
+                                    <li><a href="">@item.Name<span>(@item.PostCount)</span></a></li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                    <div class="widget recent-posts">
+                        <h3>SON GÖNDERİLER</h3>
+                        <div class="main-content">
+                            <ul>
+                                <li>
+                                    <img src="/Content/Site/Images/post-1.jpg" alt="post-1">
+                                    <a href="#"><h5 class="title">Best Night Of My Life</h5></a>
+                                    <a href="#"><p>December 11 , 2016</p></a>
+                                </li>
+                                <li>
+                                    <img src="/Content/Site/Images/post-2.jpg" alt="post-1">
+                                    <a href="#"><h5 class="title">Travel To Somewhere Really Love</h5></a>
+                                    <a href="#"><p>December 11 , 2016</p></a>
+                                </li>
+                                <li>
+                                    <img src="/Content/Site/Images/post-3.jpg" alt="post-1">
+                                    <a href="#"><h5 class="title">Love In His Eyes</h5></a>
+                                    <a href="#"><p>December 11 , 2016</p></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget tags">
+                        <h3>ETİKETLER</h3>
+                        <div class="main-content">
+                            <a href="#">audio</a>
+                            <a href="#">fashion</a>
+                            <a href="#">moments</a>
+                            <a href="#">travel</a>
+                            <a href="#">life</a>
+                            <a href="#">gallery</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            <!-- /. End Sidebar -->
+        </div>
+    </div>
+</div>

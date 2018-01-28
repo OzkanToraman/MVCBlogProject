@@ -1,17 +1,114 @@
-﻿
-@{
-    Layout = null;
+﻿@using MVC.Blog.DAL.Model
+@model SiteHomeViewModel
+
+
+
+@section slider{
+    <div class="container">
+        <div class="single-slider" id="owl-slider">
+            @foreach (var item in Model.Gonderiler)
+            {
+                <div class="item">
+                    <img class="img-responsive" src="@item.PostPic" alt="slide">
+                    <div class="info-box">
+                        <span>SLIDER AÇIKLAMASI</span>
+                        <h2 class="title"><a href="/SinglePost/SinglePost/@item.Id">@item.Title</a></h2>
+                        <p>@item.Summary</p>
+                        <a href="/SinglePost/SinglePost/@item.Id" class="btn">OKU</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <div> 
+<div class="main-part">
+    <div class="container">
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-sm-9">
+                <div class="main-content">
+                    @foreach (var item in Model.Gonderiler)
+                    {
+                        <article class="list">
+                            <div class="row">
+                                <div class="col-xs-5">
+                                    <img class="img-responsive" src="@item.PostPic" alt="posts">
+                                </div>
+                                <div class="col-xs-7">
+                                    <header>
+                                        <a href="#"><span class="tag">moments</span></a><br>
+                                        <a href="/SinglePost/SinglePost/@item.Id"><h2 class="title">@item.Title</h2></a>
+                                    </header>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit provident error blanditiis laborum, modi velit eum a impedit inventore molestias repellendus illum cum voluptatum harum! Officia molestiae, impedit autem voluptatibus.</p>
+                                    <footer>
+                                        <span class="date-author"><i>@item.PostDate</i><a href="#">@item.Kullanici.Role.RoleName</a></span>
+                                    </footer>
+                                </div>
+                            </div>
+                        </article>
+                    }
+                    <div class="pagination">
+                        <a href="#" class="btn olderpost">SONRAKİ SAYFA</a>
+                    </div>
+                </div>
+            </div>
+            <!-- /. End Main Content -->
+            <!-- Sidebar -->
+            <div class="col-sm-3">
+                <aside class="sidebar">
+                    <div class="widget aboutme">
+                        <h3>HAKKIMDA</h3>
+                        <div class="main-content">
+                            <img class="img-circle img-responsive" src="@Model.Kullanici.ProfilPic" alt="about">
+                            <span>@Model.Kullanici.Name</span>
+                            <p>
+                                @Model.Kullanici.Hakkimda
+                                <a href="/Home/About/">daha fazla...</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="widget categories">
+                        <h3>KATEGORİLER</h3>
+                        <div class="main-content">
+                            @foreach (var item in Model.Kategoriler)
+                            {
+                                <ul>
+                                    <li><a href="">@item.Name<span>(@item.PostCount)</span></a></li>
+                                </ul>
+                            }
+                        </div>
+                    </div>
+                    <div class="widget recent-posts">
+                        <h3>SON GÖNDERİLER</h3>
+                        <div class="main-content">
+                            <ul>
+                                @foreach (var item in Model.Gonderiler)
+                                {
+                                    <li>
+                                        <img src="@item.PostPic" alt="post-1">
+                                        <a href="#"><h5 class="title">@item.Title</h5></a>
+                                        <a href="#"><p>@item.PostDate</p></a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="widget tags">
+                        <h3>ETİKETLER</h3>
+                        <div class="main-content">
+                            <a href="#">audio</a>
+                            <a href="#">fashion</a>
+                            <a href="#">moments</a>
+                            <a href="#">travel</a>
+                            <a href="#">life</a>
+                            <a href="#">gallery</a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+            <!-- /. End Sidebar -->
+        </div>
     </div>
-</body>
-</html>
+</div>

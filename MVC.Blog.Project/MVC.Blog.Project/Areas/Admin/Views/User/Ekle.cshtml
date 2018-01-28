@@ -14,12 +14,15 @@
         @Html.AntiForgeryToken()
 
         <div class="kt-pagebody">
-
+            @if (ViewBag.Msg != null)
+            {
+                <span class="alert alert-danger">@ViewBag.Msg</span>
+            }
             <div class="row">
                 <div class="col-md-4 col-lg-3">
                     <label class="content-left-label">Profil Fotoğrafı</label>
                     <figure class="edit-profile-photo">
-                        <img src="/Media/Images/img11.jpg" class="img-fluid" alt="">
+                        <img src="/Media/Images/c3c5c1df-0964-4c38-820e-7412187c7117.jpg" class="img-fluid" alt="">
                         <figcaption>
                             <a class="btn btn-dark">Fotoğrafı düzenle</a>
                         </figcaption>
@@ -51,23 +54,23 @@
                     <div class="card bg-gray-200 bd-0">
                         <div class="edit-profile-form">
                             <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Ad:</label>
+                                <label class="col-sm-3 form-control-label">Ad:<span class="tx-danger">*</span></label>
                                 <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
                                     @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @type = "text", @placeholder = "Ad giriniz" })
                                     <span class="text-danger">@Html.ValidationMessageFor(x => x.Name)</span>
                                 </div>
                             </div><!-- form-group -->
                             <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Soyad:</label>
+                                <label class="col-sm-3 form-control-label">Soyad:<span class="tx-danger">*</span></label>
                                 <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
                                     @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @type = "text", @placeholder = "Soyad giriniz" })
                                     <span class="text-danger">@Html.ValidationMessageFor(x => x.LastName)</span>
                                 </div>
                             </div><!-- form-group -->
                             <div class="form-group row">
-                                <label class="col-sm-3 form-control-label">Rol:</label>
+                                <label class="col-sm-3 form-control-label">Rol:<span class="tx-danger">*</span></label>
                                 <div class="col-sm-8 col-xl-6 mg-t-10 mg-sm-t-0">
-                                    @Html.DropDownListFor(x => x.RoleId,new SelectList(ViewBag.Roller,"Value","Text"),"Rol Seçiniz",new { @class = "form-control" })
+                                    @Html.DropDownListFor(x => x.RoleId, new SelectList(ViewBag.Roller, "Value", "Text"), "Rol Seçiniz", new { @class = "form-control" })
                                 </div>
                             </div><!-- form-group -->
                             <div class="form-group row mg-b-0">
@@ -79,6 +82,8 @@
                         </div><!-- wd-60p -->
                     </div><!-- card -->
                     <hr class="invisible">
+
+                    <input type="submit" value="Ekle" class="btn btn-default btn-block" />
 
                 </div><!-- col-9 -->
             </div><!-- row -->

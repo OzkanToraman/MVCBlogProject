@@ -184,6 +184,13 @@
     <Content Include="Content\Adminv2\js\08summernote-bs4.min.js" />
     <Content Include="Content\Adminv2\js\11bootstrap-tagsinput-angular.min.js" />
     <Content Include="Content\Adminv2\js\10bootstrap-tagsinput.min.js" />
+    <Content Include="Content\Site\css\bootstrap.min.css" />
+    <Content Include="Content\Site\css\face.css" />
+    <Content Include="Content\Site\css\fontello.css" />
+    <Content Include="Content\Site\css\owl.carousel.css" />
+    <Content Include="Content\Site\js\02bootstrap.min.js" />
+    <Content Include="Content\Site\js\04main.js" />
+    <Content Include="Content\Site\js\03owl.carousel.min.js" />
     <Content Include="Global.asax" />
     <Content Include="Areas\Admin\Views\Shared\_LayoutPage2.cshtml" />
     <Content Include="Content\Adminv2\css\fonts\fontawesome-webfont.eot" />
@@ -205,9 +212,9 @@
     <Content Include="Areas\Admin\Views\Media\FileManager.cshtml" />
     <Content Include="Areas\Admin\Views\Media\Upload.cshtml" />
     <Content Include="Areas\Admin\Views\Profile\Profile.cshtml" />
-    <Content Include="Areas\Admin\Views\Profile\ProfilePicUpload.cshtml" />
     <Content Include="Areas\Admin\Views\User\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\User\Guncelle.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Home.cshtml" />
     <None Include="Content\Adminv2\css\fonts\ionicons.eot" />
     <Content Include="Content\Adminv2\css\fonts\ionicons.eot_v=2.0.0%2523iefix" />
     <Content Include="Content\Adminv2\css\fonts\ionicons.svg" />
@@ -217,8 +224,19 @@
     <Content Include="Content\Adminv2\css\fonts\summernote.eot_0d0d5fac99cc8774d89eb08b1a8323c4" />
     <None Include="Content\Adminv2\css\fonts\summernote.ttf" />
     <None Include="Content\Adminv2\css\fonts\summernote.woff" />
+    <None Include="Content\Site\css\font\fontello.eot" />
+    <Content Include="Content\Site\css\font\fontello.eot_91926043%2523iefix" />
+    <Content Include="Content\Site\css\font\fontello.svg" />
+    <None Include="Content\Site\css\font\fontello.ttf" />
+    <None Include="Content\Site\css\font\fontello.woff2" />
+    <None Include="Content\Site\css\font\fontello.woff" />
+    <Content Include="Content\Site\js\01jquery-1.11.3.min.js" />
     <None Include="Scripts\jquery-3.2.1.intellisense.js" />
+    <Content Include="Media\Images\10baeedf-2aa5-483f-811d-a3619d124514.jpg" />
+    <Content Include="Media\Images\8f3648d1-69e6-4c79-87ac-8da5e47cb8b3.jpg" />
+    <Content Include="Media\Images\a31440a0-3463-410d-9312-4215d98f2d02.jpg" />
     <Content Include="Media\Images\img11.jpg" />
+    <Content Include="Media\Images\img1.jpg" />
     <Content Include="Scripts\jquery-3.2.1.js" />
     <Content Include="Scripts\jquery-3.2.1.min.js" />
     <Content Include="Scripts\jquery-3.2.1.slim.js" />
@@ -241,7 +259,10 @@
     <Compile Include="Areas\Admin\Controllers\PostController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
+    <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SinglePostController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,6 +285,11 @@
     <Content Include="Areas\Admin\Views\Category\Listele.cshtml" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+    <Content Include="Views\Shared\_LayoutPageSite.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\SinglePost\SinglePost.cshtml" />
+    <Content Include="Views\About\About.cshtml" />
+    <Content Include="Views\Contact\Contact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -275,14 +301,10 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Areas\Admin\Views\Dashboard\" />
     <Folder Include="Areas\Admin\Views\Message\" />
     <Folder Include="Areas\Admin\Views\Page\" />
-    <Folder Include="Content\Dashboardv2\css\" />
-    <Folder Include="Content\Dashboardv2\js\" />
     <Folder Include="Content\Images\" />
-    <Folder Include="Content\Site\css\" />
-    <Folder Include="Content\Site\js\" />
+    <Folder Include="Content\Site\images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

@@ -89,7 +89,6 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
 
         }
 
-        [HttpPost]
         public ActionResult Sil(int id)
         {
             _uow.GetRepo<Category>()

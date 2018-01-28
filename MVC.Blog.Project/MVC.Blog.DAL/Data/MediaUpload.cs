@@ -7,7 +7,7 @@ namespace MVC.Blog.DAL.Data
     using System.Data.Entity.Spatial;
 
     [Table("MediaUpload")]
-    public partial class MediaUpload:EntityBase
+    public partial class MediaUpload :EntityBase
     {
         public int Id { get; set; }
 
@@ -17,5 +17,9 @@ namespace MVC.Blog.DAL.Data
 
         [Required]
         public string Path { get; set; }
+
+        public bool SliderImage { get; set; }
+
+        public DateTime UploadDate { get; set; }
     }
 }

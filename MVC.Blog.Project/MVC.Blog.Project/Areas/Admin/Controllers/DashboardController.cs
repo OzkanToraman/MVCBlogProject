@@ -9,7 +9,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
     public class DashboardController : Controller
     {
         // GET: Admin/Dashboard
-        public ActionResult Index()
+        public ActionResult Home()
         {
             return View();
         }
