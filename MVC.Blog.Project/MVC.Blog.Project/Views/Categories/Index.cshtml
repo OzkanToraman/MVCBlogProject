@@ -1,28 +1,6 @@
 ﻿@using MVC.Blog.DAL.Model
 @model SiteHomeViewModel
 
-
-
-@section slider{
-    <div class="container">
-        <div class="single-slider" id="owl-slider">
-            @foreach (var item in Model.Gonderiler)
-            {
-                <div class="item">
-                    <img class="img-responsive" src="@item.PostPic" alt="slide">
-                    <div class="info-box">
-                        <span>SLIDER AÇIKLAMASI</span>
-                        <h2 class="title"><a href="/SinglePost/SinglePost/@item.Id">@item.Title</a></h2>
-                        <p>@item.Summary</p>
-                        <a href="/SinglePost/SinglePost/@item.Id" class="btn">OKU</a>
-                    </div>
-                </div>
-            }
-        </div>
-    </div>
-}
-
-
 <div class="main-part">
     <div class="container">
         <div class="row">
@@ -75,7 +53,7 @@
                             @foreach (var item in Model.Kategoriler)
                             {
                                 <ul>
-                                    <li><a href="/Categories/Index/@item.Id">@item.Name<span>(@item.PostCount)</span></a></li>
+                                    <li><a href="/SinglePost/SinglePost/@item.Id">@item.Name<span>(@item.PostCount)</span></a></li>
                                 </ul>
                             }
                         </div>
