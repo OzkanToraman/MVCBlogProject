@@ -136,10 +136,10 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                     .Update(model.Post);
                 if (_uow.Commit() > 0)
                 {
-                    return RedirectToAction("Listele","Post");
+                    return RedirectToAction("Listele", "Post");
                 }
             }
-            return RedirectToAction("Listele","Post");
+            return RedirectToAction("Listele", "Post");
         }
 
         public ActionResult Sil(int id)
@@ -155,7 +155,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             #endregion
 
             _uow.Commit();
-            return RedirectToAction("Listele","Post");
+            return RedirectToAction("Listele", "Post");
         }
 
         void CategoryFill()

@@ -66,6 +66,7 @@
     <Compile Include="Validations\CategoryValidations\CategoryAddValidator.cs" />
     <Compile Include="Validations\LoginValidations\ForgotPasswordValidator.cs" />
     <Compile Include="Validations\LoginValidations\PasswordConfirmValidator.cs" />
+    <Compile Include="Validations\MessageValidations\MessageValidator.cs" />
     <Compile Include="Validations\PostValidations\PostAddValidator.cs" />
     <Compile Include="Validations\LoginValidations\UserValidator.cs" />
     <Compile Include="Validations\PostValidations\PostUpdateValidator.cs" />

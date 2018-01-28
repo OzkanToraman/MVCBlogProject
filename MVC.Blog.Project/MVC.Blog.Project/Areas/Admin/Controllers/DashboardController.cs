@@ -6,11 +6,13 @@ using System.Web.Mvc;
 
 namespace MVC.Blog.Project.Areas.Admin.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
-        // GET: Admin/Dashboard
+        [OutputCache(Duration = 30)]
         public ActionResult Home()
         {
+            ViewBag.UserName = HttpContext.User.Identity.Name;
             return View();
         }
 

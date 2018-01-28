@@ -15,13 +15,13 @@ namespace MVC.Blog.DAL.Data
 
         public DateTime CommentDate { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public int PostId { get; set; }
 
         public bool IsDeleted { get; set; }
 
-        public int? LikeCount { get; set; }
+        public int LikeCount { get; set; }
 
         public virtual Post Post { get; set; }
 

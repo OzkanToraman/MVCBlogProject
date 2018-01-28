@@ -20,7 +20,7 @@ namespace MVC.Blog.DAL.Data
 
         public DateTime MessageDate { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public bool IsDeleted { get; set; }
 
@@ -28,6 +28,9 @@ namespace MVC.Blog.DAL.Data
         [Required]
         [StringLength(50)]
         public string Email { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string MessageFrom { get; set; }
 
         public virtual Kullanici Kullanici { get; set; }
     }

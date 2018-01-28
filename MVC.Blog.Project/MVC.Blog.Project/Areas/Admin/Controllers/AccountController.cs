@@ -41,7 +41,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("/Admin/Dashboard/Home/");
             }
 
             return View();
@@ -66,7 +66,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 if (loginUser != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-                    return RedirectToAction("Index","Home");
+                    return Redirect("/Admin/Dashboard/Home/");
                 }
                 else
                 {

@@ -15,7 +15,7 @@
                         </header>
                         <div class="main-text">
                             <img class="img-responsive" src="@Model.Gonderi.PostPic" alt="posts">
-                            
+
                             @Html.Raw(Model.Gonderi.PostBody)
 
                         </div>
@@ -29,51 +29,29 @@
                         </footer>
                     </article>
                     <div class="comments">
-                        <h2>3 Comments</h2>
-                        <div class="comment">
-                            <div class="img">
-                                <img src="/Content/Site/Images/aboutme.jpg" alt="post" class="img-responsive img-circle">
-                            </div>
-                            <div class="text">
-                                <span>admin</span><a href="#">replay</a><br>
-                                <i>December 11, 2015 at 8:45 pm</i>
-                                <p>Selfies iPhone Kickstarter, drinking vinegar jean shorts fixie consequat flexitarian four loko pop-up artisan sunt. Deep v cliche lomo biodiesel Neutra selfies.</p>
-                            </div>
-                            <div class="child">
-                                <div class="comment">
+                        <h2></h2>
+                        @if (Model.Yorumlar != null)
+                        {
+                            foreach (var item in Model.Yorumlar)
+                            {
+                                <div class="comment" id="yorum">
                                     <div class="img">
-                                        <img src="/Content/Site/Images/aboutme.jpg" alt="post" class="img-responsive img-circle">
+                                        <img src="@item.Kullanici.ProfilPic" alt="post" class="img-responsive img-circle">
                                     </div>
                                     <div class="text">
                                         <span>admin</span><a href="#">replay</a><br>
-                                        <i>December 11, 2015 at 8:46 pm</i>
-                                        <p>i totally agree with you</p>
+                                        <i>@item.CommentDate</i>
+                                        <p>@item.CommentBody</p>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            }
 
-                        <div class="comment">
-                            <div class="img">
-                                <img src="/Content/Site/Images/aboutme.jpg" alt="post" class="img-responsive img-circle">
-                            </div>
-                            <div class="text">
-                                <span>admin</span><a href="#">replay</a><br>
-                                <i>December 11, 2015 at 8:47 pm</i>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae aspernatur expedita cumque vero, officia, quia ad? Qui tempore magni quo ea provident praesentium tempora voluptatum harum, numquam iste debitis aspernatur unde ipsum quae velit. Porro maxime ut totam ullam nostrum iste aut in qui eveniet nisi, omnis nihil cupiditate quisquam.</p>
-                            </div>
-                        </div>
+                        }
                     </div>
                     <div class="leaveraplay">
                         <h5>YORUM YAZ</h5>
-                        <form action="#" method="post">
-                            <textarea name="subject" id="subject"></textarea>
-                            <label for="Name">Ad *</label>
-                            <input type="text" name="Name" id="Name" required>
-                            <label for="Email">E-posta *</label>
-                            <input type="text" name="Email" id="Email">
-                            <button type="submit" id="sbmbtn" name="sbmbtn">YORUMLA</button>
-                        </form>
+                        <textarea name="subject" id="commenText" value="Yorum yazınız..."></textarea>
+                        <button onclick="SendComment()" id="">YORUMLA</button>
                     </div>
                 </div>
             </div>
@@ -84,11 +62,11 @@
                     <div class="widget aboutme">
                         <h3>HAKKIMDA</h3>
                         <div class="main-content">
-                            <img class="img-circle img-responsive" src="/Content/Site/Images/aboutme.jpg" alt="about">
-                            <span>John Doe</span>
+                            <img class="img-circle img-responsive" src="@Model.Kullanici.ProfilPic" alt="about">
+                            <span>@Model.Kullanici.Name</span>
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, dolor! At architecto, culpa cum rerum
-                                <a href="#">readmore...</a>
+                                @Model.Kullanici.Hakkimda
+                                <a href="/Home/About/">daha fazla...</a>
                             </p>
                         </div>
                     </div>
@@ -107,21 +85,14 @@
                         <h3>SON GÖNDERİLER</h3>
                         <div class="main-content">
                             <ul>
-                                <li>
-                                    <img src="/Content/Site/Images/post-1.jpg" alt="post-1">
-                                    <a href="#"><h5 class="title">Best Night Of My Life</h5></a>
-                                    <a href="#"><p>December 11 , 2016</p></a>
-                                </li>
-                                <li>
-                                    <img src="/Content/Site/Images/post-2.jpg" alt="post-1">
-                                    <a href="#"><h5 class="title">Travel To Somewhere Really Love</h5></a>
-                                    <a href="#"><p>December 11 , 2016</p></a>
-                                </li>
-                                <li>
-                                    <img src="/Content/Site/Images/post-3.jpg" alt="post-1">
-                                    <a href="#"><h5 class="title">Love In His Eyes</h5></a>
-                                    <a href="#"><p>December 11 , 2016</p></a>
-                                </li>
+                                @foreach (var item in Model.Gonderiler)
+                                {
+                                    <li>
+                                        <img src="@item.PostPic" alt="post-1">
+                                        <a href="#"><h5 class="title">@item.Title</h5></a>
+                                        <a href="#"><p>@item.PostDate</p></a>
+                                    </li>
+                                }
                             </ul>
                         </div>
                     </div>
@@ -142,3 +113,34 @@
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+
+        var postId = @Model.Gonderi.Id;
+
+
+        function SendComment() {
+            var value = $("#commentText").val();
+            var obj = new Object();
+            obj.CommentBody = value;
+            obj.CommentDate = new Date();
+            obj.Post = new Object();
+            obj.Post.Id= postId;
+
+            $.ajax({
+                url: "/SinglePost/PostComment",
+                type: "post",
+                data: obj,
+                success: function (response) {
+                    $("#yorum").prepend(
+                        "<div>" +
+                            "<p>" + response.CommentBody + "</p>"
+                        + "</div>"
+                        )
+                }
+            })
+
+        }
+    </script>
+}

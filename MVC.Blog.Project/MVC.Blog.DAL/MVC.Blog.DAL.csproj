@@ -61,6 +61,7 @@
     <Compile Include="Data\MediaUpload.cs" />
     <Compile Include="Data\Message.cs" />
     <Compile Include="Context\BlogContext.cs" />
+    <Compile Include="Model\ContactViewModel.cs" />
     <Compile Include="Model\PostViewModel.cs" />
     <Compile Include="Model\SiteHomeViewModel.cs" />
     <Compile Include="Model\UserUpdateModel.cs" />

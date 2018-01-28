@@ -21,16 +21,28 @@ namespace MVC.Blog.Project.Controllers
         {
             SiteHomeViewModel model = new SiteHomeViewModel();
 
-            Post p = _uow.GetRepo<Post>()
+            model.Gonderi = _uow.GetRepo<Post>()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
-            model.Gonderi = p;
+            model.Gonderiler = _uow.GetRepo<Post>()
+                .GetList();
             model.Kategoriler = _uow.GetRepo<Category>()
                 .Where(x => x.IsDeleted == false);
             model.Kullanici = _uow.GetRepo<Kullanici>()
                 .Where(x => x.RoleId == 1)
                 .FirstOrDefault();
+            model.Yorumlar = _uow.GetRepo<Comments>()
+                .GetList();
             return View(model);
+        }
+
+        [HttpPost]
+        public JsonResult PostComment(Comments model)
+        {
+            _uow.GetRepo<Comments>()
+                .Add(model);
+            _uow.Commit();
+            return Json(model);
         }
     }
 }
