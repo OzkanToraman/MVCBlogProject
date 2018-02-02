@@ -54,7 +54,7 @@ namespace MVC.Blog.BLL.Services.Concrete
             smtp.Host = "smtp.gmail.com";
             smtp.Port = 587;
             smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential("ozkn.toraman@gmail.com", "3464381toraman");
+            smtp.Credentials = new NetworkCredential("ozkn.toraman@gmail.com", "3***********n");
 
             try
             {
