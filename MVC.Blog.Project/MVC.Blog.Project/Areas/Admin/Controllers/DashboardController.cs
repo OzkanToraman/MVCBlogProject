@@ -5,9 +5,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace MVC.Blog.Project.Areas.Admin.Controllers
 {
-    [Authorize]
+    [UserAuthorize]
     public class DashboardController : Controller
     {
         [OutputCache(Duration = 30)]

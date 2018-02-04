@@ -60,34 +60,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 if (loginUser != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-
-                    //var authTicket = new FormsAuthenticationTicket(
-                    //    1, 
-                    //    model.Email, 
-                    //    DateTime.Now, 
-                    //    DateTime.Now.AddMinutes(20), 
-                    //    false, 
-                    //    model.Role.RoleName
-                    //    );
-                    //string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                    //var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                    //HttpContext.Response.Cookies.Add(authCookie);
-
-                    //if (Url.IsLocalUrl(ReturnUrl))
-                    //{
-                    //    return Redirect(ReturnUrl);
-                    //}
-                    //else if (model.Role.RoleName.Contains("Admin"))
-                    //{
-                    //    return Redirect("/Admin");
-                    //}
-                    //else
-                    //{
-                    //    return RedirectToAction("Index", "Home");
-                    //}
-
-                    //if (loginUser.RoleId == 1)
-                        return Redirect("/Admin");
+                    return Redirect("/Admin");
 
 
 

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MVC.Blog.DAL.Data;
+using MVC.Blog.Repository.UOW.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,9 +10,12 @@ namespace MVC.Blog.Project.Models
 {
     public class UserAuthorize : AuthorizeAttribute
     {
+
+        public string UserRole { get; set; }       
+
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            if (httpContext.Request.Cookies["ozkn.toraman@gmail.com"] != null)
+            if (httpContext.User.Identity.Name== "ozkn.toraman@gmail.com")
             {
                 return true;
             }

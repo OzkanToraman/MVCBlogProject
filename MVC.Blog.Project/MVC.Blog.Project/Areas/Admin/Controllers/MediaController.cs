@@ -11,6 +11,7 @@ using MVC.Blog.Project.Models;
 
 namespace MVC.Blog.Project.Areas.Admin.Controllers
 {
+    [UserAuthorize]
     public class MediaController : BaseController
     {
         public MediaController(IUnitOfWork uow) : base(uow)

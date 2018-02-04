@@ -10,9 +10,11 @@ using System.IO;
 using MVC.Blog.DAL.Model;
 using MVC.Blog.BLL.Services.Abstract;
 using System.Threading.Tasks;
+using MVC.Blog.Project.Models;
 
 namespace MVC.Blog.Project.Areas.Admin.Controllers
 {
+    [UserAuthorize]
     public class PostController : BaseController
     {
         bool IsSuccess;
