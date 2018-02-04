@@ -23,25 +23,18 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         bool IsSuccess;
         string _kod;
 
-        public AccountController(IUnitOfWork uow, IMailMessage mesaj,IEncryptor encrypt)
+        public AccountController(IUnitOfWork uow, IMailMessage mesaj, IEncryptor encrypt)
         {
             _uow = uow;
             _mesaj = mesaj;
             _encrypt = encrypt;
         }
-
-        // GET: Admin/Account
-        public ActionResult Dashboard()
-        {
-            return View();
-        }
-
         [AllowAnonymous]
         public ActionResult Login()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("/Admin/Dashboard/Home/");
+                return Redirect("/Admin");
             }
 
             return View();
@@ -52,6 +45,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         [AllowAnonymous]
         public ActionResult Login(Kullanici model)
         {
+            IsSuccess = false;
             var validator = new BaseValidator().Validate(model);
             if (validator.IsValid)
             {
@@ -66,7 +60,38 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 if (loginUser != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Email, model.RememberMe);
-                    return Redirect("/Admin/Dashboard/Home/");
+
+                    //var authTicket = new FormsAuthenticationTicket(
+                    //    1, 
+                    //    model.Email, 
+                    //    DateTime.Now, 
+                    //    DateTime.Now.AddMinutes(20), 
+                    //    false, 
+                    //    model.Role.RoleName
+                    //    );
+                    //string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                    //var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    //HttpContext.Response.Cookies.Add(authCookie);
+
+                    //if (Url.IsLocalUrl(ReturnUrl))
+                    //{
+                    //    return Redirect(ReturnUrl);
+                    //}
+                    //else if (model.Role.RoleName.Contains("Admin"))
+                    //{
+                    //    return Redirect("/Admin");
+                    //}
+                    //else
+                    //{
+                    //    return RedirectToAction("Index", "Home");
+                    //}
+
+                    //if (loginUser.RoleId == 1)
+                        return Redirect("/Admin");
+
+
+
+
                 }
                 else
                 {
@@ -75,9 +100,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 }
             }
             else
-            {
                 validator.Errors.ToList().ForEach(x => ModelState.AddModelError(x.PropertyName, x.ErrorMessage));
-            }
             return View();
         }
 

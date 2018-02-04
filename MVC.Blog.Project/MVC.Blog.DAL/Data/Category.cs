@@ -7,7 +7,7 @@ namespace MVC.Blog.DAL.Data
     using System.Data.Entity.Spatial;
 
     [Table("Category")]
-    public partial class Category : EntityBase
+    public partial class Category :EntityBase
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()

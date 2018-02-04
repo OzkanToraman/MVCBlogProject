@@ -7,7 +7,7 @@ namespace MVC.Blog.DAL.Data
     using System.Data.Entity.Spatial;
 
     [Table("Contact")]
-    public partial class Contact : EntityBase
+    public partial class Contact :EntityBase
     {
         [Key]
         public string ContactContent { get; set; }

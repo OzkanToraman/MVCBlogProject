@@ -17,8 +17,8 @@
 
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7COpen+Sans:400,400i%7CPoiret+One" rel="stylesheet">
-@Styles.Render("~/bundlesSite/styles")
-@RenderSection("styles",false)
+    @Styles.Render("~/bundlesSite/styles")
+    @RenderSection("styles", false)
 
 </head>
 <body>
@@ -30,23 +30,6 @@
         <!-- top Menu -->
         <div class="container">
             <nav>
-                <div class="header-socialicons">
-                    <a href="#">
-                        <span class="icon-facebook"></span>
-                    </a>
-                    <a href="#">
-                        <span class="icon-instagram"></span>
-                    </a>
-                    <a href="#">
-                        <span class="icon-gplus"></span>
-                    </a>
-                    <a href="#">
-                        <span class="icon-linkedin"></span>
-                    </a>
-                    <a href="#">
-                        <span class="icon-pinterest"></span>
-                    </a>
-                </div>
                 <div class="search-part">
                     <input type="text" name="searchtxt" id="searchtxt" placeholder="Arama Yap ...">
                     <a href="#" id="showsearch">
@@ -79,8 +62,7 @@
                 </div>
             </div>
         </nav>
-
-        @RenderSection("slider",false)
+        @RenderSection("slider", false)
         <!-- /.Master Menu -->
     </header>
     <!-- /. End Header -->
@@ -88,19 +70,18 @@
         <div class="container">
             <div class="row">
                 @RenderBody()
-                </div>
             </div>
         </div>
-            <!-- Footer -->
-            <footer class="last-footer">
-                <!-- Footer Logo -->
-       
-                <!-- /.End Footer Logo -->
+    </div>
+    <!-- Footer -->
+    <footer class="last-footer">
+        <!-- Footer Logo -->
+        <!-- /.End Footer Logo -->
 
-            </footer>
-            <!-- /.End Footer -->
-            <!-- /. End Index Page -->
-            @Scripts.Render("~/bundlesSite/scripts")
-            @RenderSection("scripts", false)
+    </footer>
+    <!-- /.End Footer -->
+    <!-- /. End Index Page -->
+    @Scripts.Render("~/bundlesSite/scripts")
+    @RenderSection("scripts", false)
 </body>
 </html>

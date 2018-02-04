@@ -25,12 +25,14 @@ namespace MVC.Blog.DAL.Data
         public bool IsDeleted { get; set; }
 
         public bool IsRead { get; set; }
-        [Required]
-        [StringLength(50)]
-        public string Email { get; set; }
+
         [Required]
         [StringLength(50)]
         public string MessageFrom { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Email { get; set; }
 
         public virtual Kullanici Kullanici { get; set; }
     }

@@ -10,7 +10,7 @@
                 <div class="main-content singlepost">
                     <article>
                         <header>
-                            <a href="#"><span class="tag">@Model.Gonderi.Tags</span></a>
+                            @*<a href="#"><span class="tag">@Model.Gonderi.Tags</span></a>*@
                             <a href="#"><h2 class="title">@Model.Gonderi.Title</h2></a>
                         </header>
                         <div class="main-text">
@@ -20,26 +20,25 @@
 
                         </div>
                         <footer>
-                            <span class="date-author"><i>@Model.Gonderi.PostDate</i><a href="#">@Model.Gonderi.Kullanici.Role.RoleName</a></span>
+                            <span class="date-author"><i>@Model.Gonderi.PostDate</i></span>
                             <span class="socialicons-post">
                                 <a href="#">
-                                    <span class="icon-facebook"></span>
+                                    <i class="fas fa-thumbs-up"></i>
                                 </a>
                             </span>
                         </footer>
                     </article>
-                    <div class="comments">
-                        <h2></h2>
+                    <div class="comments" id="yorum">
                         @if (Model.Yorumlar != null)
                         {
                             foreach (var item in Model.Yorumlar)
                             {
-                                <div class="comment" id="yorum">
+                                <div class="comment">
                                     <div class="img">
                                         <img src="@item.Kullanici.ProfilPic" alt="post" class="img-responsive img-circle">
                                     </div>
                                     <div class="text">
-                                        <span>admin</span><a href="#">replay</a><br>
+                                        <span>@item.Kullanici.Name @item.Kullanici.LastName</span><br>
                                         <i>@item.CommentDate</i>
                                         <p>@item.CommentBody</p>
                                     </div>
@@ -48,11 +47,21 @@
 
                         }
                     </div>
+                    @if (Model.LogUser!="")
+                    {
                     <div class="leaveraplay">
                         <h5>YORUM YAZ</h5>
-                        <textarea name="subject" id="commenText" value="Yorum yazınız..."></textarea>
-                        <button onclick="SendComment()" id="">YORUMLA</button>
+                        <textarea name="subject" id="commentText" value="Yorum yazınız..."></textarea>
+                        <button id="sendComment">YORUMLA</button>
                     </div>
+                    }
+                    else
+                    {
+                        <div class="leaveraplay">
+                            <span>Yorum yapabilmek için <a href="/Admin/Account/Login">Giriş</a> yapınız...</span>
+                        </div>
+                    }
+
                 </div>
             </div>
             <!-- /. End Main Content -->
@@ -63,10 +72,10 @@
                         <h3>HAKKIMDA</h3>
                         <div class="main-content">
                             <img class="img-circle img-responsive" src="@Model.Kullanici.ProfilPic" alt="about">
-                            <span>@Model.Kullanici.Name</span>
+                            <span>@Model.Kullanici.Name </span>
                             <p>
                                 @Model.Kullanici.Hakkimda
-                                <a href="/Home/About/">daha fazla...</a>
+                                <a href="/About/About/">daha fazla...</a>
                             </p>
                         </div>
                     </div>
@@ -96,17 +105,6 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="widget tags">
-                        <h3>ETİKETLER</h3>
-                        <div class="main-content">
-                            <a href="#">audio</a>
-                            <a href="#">fashion</a>
-                            <a href="#">moments</a>
-                            <a href="#">travel</a>
-                            <a href="#">life</a>
-                            <a href="#">gallery</a>
-                        </div>
-                    </div>
                 </aside>
             </div>
             <!-- /. End Sidebar -->
@@ -115,32 +113,40 @@
 </div>
 
 @section scripts{
-    <script>
+    <script type="text/javascript">
 
         var postId = @Model.Gonderi.Id;
 
+        $(document).ready(function(){
+            $("#sendComment").click(function(){
+                var value= $("#commentText").val();
 
-        function SendComment() {
-            var value = $("#commentText").val();
-            var obj = new Object();
-            obj.CommentBody = value;
-            obj.CommentDate = new Date();
-            obj.Post = new Object();
-            obj.Post.Id= postId;
-
-            $.ajax({
-                url: "/SinglePost/PostComment",
-                type: "post",
-                data: obj,
-                success: function (response) {
-                    $("#yorum").prepend(
-                        "<div>" +
-                            "<p>" + response.CommentBody + "</p>"
-                        + "</div>"
-                        )
-                }
+                $.ajax({
+                    url: '/SinglePost/PostComment?Yorum='+value+'&GonderiId='+postId,
+                    //url:"/SinglePost/PostComment",
+                    type: "GET",
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    //data: (Yorum=value,PostId=postId),
+                    success: function (response) {
+                        console.log(response)
+                        $("#yorum").prepend(
+                        "<div class='comment'>"
+                        +"<div class='img'>"
+                        +"<img src="+response.ProfilPic +" alt='post' class='img-responsive img-circle'></div>"
+                        +"<div class='text'>"
+                        +"<span>"+response.Name+" "+response.LastName+"</span><br>"
+                        +"<i>"+response.CommentDate+"</i>"
+                        +"<p>"+response.CommentBody+"</p>"
+                        +"</div>"
+                        +"</div>"
+                        );
+                        $("#commentText").val("");
+                    }
+                })
             })
+        });
 
-        }
     </script>
 }

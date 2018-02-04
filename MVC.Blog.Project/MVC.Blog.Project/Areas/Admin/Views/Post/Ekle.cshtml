@@ -32,22 +32,24 @@
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
                 <h6>Başlık:<span class="tx-danger">*</span></h6>
-                @Html.TextBoxFor(x => x.Post.Title, new { @class = "form-input", @placeholder = "Yazı başlığı" })
+                @Html.EditorFor(x => x.Post.Title, new { @class = "form-input", @placeholder = "Yazı başlığı" })
                 <span class="text-danger">@Html.ValidationMessageFor(x => x.Post.Title)</span>
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
                 <h6>İçerik:<span class="tx-danger">*</span></h6>
-                @Html.TextAreaFor(x => x.Post.PostBody, new { @class = "form-input", @id = "summernote", @placeholder = "Gönderi açıklaması giriniz..." })
+                @Html.TextAreaFor(x => x.Post.PostBody, new { @class = "form-input", @id = "summernote" })
                 <span class="text-danger">@Html.ValidationMessageFor(x => x.Post.PostBody)</span>
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
                 <h6>Açıklama:</h6>
                 @Html.TextAreaFor(x => x.Post.Description, 10, 50, new { @class = "form-input", @placeholder = "Yazı açıklaması" })
-                <span class="text-danger">@Html.ValidationMessageFor(x => x.Post.Description)</span>
+            </div>
+            <div class="card pd-20 pd-sm-40 mg-t-10">
+                <h6>Özet:</h6>
+                @Html.TextAreaFor(x => x.Post.Summary, 10, 50, new { @class = "form-input", @placeholder = "Yazı özeti" })
             </div>
             <div class="card pd-20 pd-sm-40 mg-t-10">
                 <h6>Fotoğraf:<span class="tx-danger">*</span></h6>
-                @*@Html.TextBox("Files",null, new { @type = "file", @multiple = true })*@
                 <input type="file" name="PostedPic" accept="image/jpeg" />
                 <span class="text-danger">@Html.ValidationMessageFor(x => x.PostedPic)</span>
                 <br />

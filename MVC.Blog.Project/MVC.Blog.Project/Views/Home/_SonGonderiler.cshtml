@@ -1,0 +1,16 @@
+﻿<div class="widget recent-posts">
+    <h3>SON GÖNDERİLER</h3>
+    <div class="main-content">
+        <ul>
+            @foreach (var item in Model.Gonderiler)
+            {
+                <li>
+                    <img src="@item.PostPic" alt="post-1">
+                    <a href="/SinglePost/SinglePost/@item.Id"><h5 class="title">@item.Title</h5></a>
+                    <a href="/SinglePost/SinglePost/@item.Id"><p>@item.PostDate</p></a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>
+

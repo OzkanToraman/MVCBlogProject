@@ -1,0 +1,24 @@
+﻿
+@foreach (var item in Model.Gonderiler)
+{
+    <article class="list">
+        <div class="row">
+            <div class="col-xs-5">
+                <img class="img-responsive" src="@item.PostPic" alt="posts">
+            </div>
+            <div class="col-xs-7">
+                <header>
+                    <br>
+                    <a href="/SinglePost/SinglePost/@item.Id"><h2 class="title">@item.Title</h2></a>
+                </header>
+                <p>@item.Summary</p>
+                <footer>
+                    <span class="date-author">
+                        <i>@item.PostDate</i>
+                        @*<a href="#">@item.Kullanici.Role.RoleName</a>*@
+                    </span>
+                </footer>
+            </div>
+        </div>
+    </article>
+}

@@ -12538,7 +12538,7 @@ textarea.parsley-success:focus {
 }
 @media (min-width: 992px) {
   .content-body {
-    margin-left: 240px;
+    margin-left: 20px;
   }
 }
 .content-body .dropdown-menu {

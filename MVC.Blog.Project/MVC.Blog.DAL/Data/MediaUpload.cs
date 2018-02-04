@@ -17,9 +17,5 @@ namespace MVC.Blog.DAL.Data
 
         [Required]
         public string Path { get; set; }
-
-        public bool SliderImage { get; set; }
-
-        public DateTime UploadDate { get; set; }
     }
 }

@@ -25,10 +25,10 @@ namespace MVC.Blog.BLL.Validations.CategoryValidations
             if (!_uow.GetRepo<Category>()
                 .Any(x => x.Name == Name))
             {
-                return false;
+                return true;
             }
 
-            return true;
+            return false;
              
                 
         }

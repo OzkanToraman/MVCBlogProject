@@ -1,5 +1,7 @@
-﻿@using MVC.Blog.DAL.Data
-@model IEnumerable<MediaUpload>
+﻿@using PagedList
+@using PagedList.Mvc
+@using MVC.Blog.Project.Models
+@model FileManagerModel
 
 
 <div class="kt-mainpanel">
@@ -8,79 +10,80 @@
     </div><!-- kt-pagetitle -->
     <div class="kt-pagebody">
         <div class="content-wrapper">
-            <div class="content-left">
-                <a class="btn btn-default btn-block mg-b-20" href="/Admin/Media/Upload">Yeni Dosya Yükle</a>
-                <label class="content-left-label">Dosyalara Göz At</label>
-                <ul class="nav mg-t-1-force">
-                    <li class="nav-item">
-                        <a href="" class="nav-link">
-                            <i class="icon ion-ios-folder-outline"></i>
-                            <span>Tüm Dosyalar</span>
-                        </a>
-                    </li><!-- nav-item -->
-                </ul>
-            </div><!-- content-left -->
+
+
+
             <div class="content-body">
                 <div class="content-body-header">
-                    <div class="d-flex">
+                    <div class="d-flex ">
+                        <a class="btn btn-default" href="/Admin/Media/Upload">...</a>
                         <div class="btn-group mg-b-0 mg-r-10 hidden-lg-up">
-                            <button id="btnContentLeft" class="btn btn-secondary"><i class="icon ion-navicon-round tx-20"></i></button>
                         </div><!-- btn-group -->
                     </div>
                     <div class="mg-l-auto">
                         <div class="btn-group mg-b-0 mg-l-5">
+                            <button id="trash" class="btn btn-secondary disabled" data-toggle="tooltip" data-placement="top" title="Silmek için tıklayın"><i class="icon ion-ios-trash-outline tx-20"></i></button>
                             <button class="btn btn-secondary disabled"><i class="icon ion-ios-arrow-back tx-20"></i></button>
                             <button class="btn btn-secondary"><i class="icon ion-ios-arrow-forward tx-20"></i></button>
                         </div><!-- btn-group -->
                     </div>
                 </div><!-- content-body-header -->
-                <table class="table table-striped mg-b-0 mg-t-20">
-                    <thead>
-                        <tr>
-                            <th class="wd-5p">
-                                <label class="ckbox mg-b-0">
-                                    <input type="checkbox"><span></span>
-                                </label>
-                            </th>
-                            <th>DOSYA İSMİ</th>
-                            <th class="hidden-xs-down">DEĞİŞTİRİLME TARİHİ</th>
-                            <th class="wd-5p"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+                <div id="tablo">
+                    @Html.Partial("_FileManagerTable", Model.Yuklenenler)
+                </div>
 
-                            <tr>
-                                <td class="valign-middle">
-                                    <label class="ckbox mg-b-0">
-                                        <input type="checkbox"><span></span>
-                                    </label>
-                                </td>
-                                <td>
-                                    <i class="icon ion-ios-folder-outline tx-24 tx-warning lh-0 valign-middle"></i>
-                                    <span class="pd-l-5">@item.Name</span>
-                                </td>
-                                <td class="hidden-xs-down">@item.UploadDate.ToShortDateString()</td>
-                                <td class="dropdown">
-                                    <a href="#" data-toggle="dropdown" class="btn pd-y-3 tx-gray-500 hover-info"><i class="icon ion-more"></i></a>
-                                    <div class="dropdown-menu dropdown-menu-right pd-10">
-                                        <nav class="nav nav-style-1 flex-column">
-                                            <a href="" class="nav-link">Bilgi</a>
-                                            <a href="" class="nav-link">İndir</a>
-                                            <a href="" class="nav-link">Yeniden Adlandır</a>
-                                            <a href="" class="nav-link">Taşı</a>
-                                            <a href="" class="nav-link">Kopyala</a>
-                                            <a href="" class="nav-link">Sil</a>
-                                        </nav>
-                                    </div><!-- dropdown-menu -->
-                                </td>
-                            </tr>
 
-                        }
-                    </tbody>
-                </table>
             </div><!-- content-body -->
         </div><!-- content-wrapper -->
     </div><!-- kt-pagebody -->
 </div>
+
+@section scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            $("#trash").click(function () {
+                var tiklanan = $(this);
+                var Secilenler = "";
+                $('#uploaded :checked').each(function (index, item) {
+                    //Secilenler.push($(this).val());
+                    Secilenler += $(item).val() + " ";
+                });
+
+                $.ajax({
+                    url: "/Media/DeleteUpload/?Secilenler=" + Secilenler,
+                    type: "get",
+                    datatype: "json",
+                    success: function (response) {
+                        console.log(response);
+                        $.each(response, function (index, value) {
+                            $("tbody tr").remove("#deleted_" + value);
+                        });
+                    },
+                    error: function (xhr) {
+                        alert('İşlem başarısız!');
+                    }
+
+                });
+            });
+
+        });
+
+        $("#checkAll").click(function () {
+            $('input:checkbox').not(this).prop('checked', this.checked);
+        });
+
+        $(document).ready(function () {
+            $(".page-link").click(function () {
+                var id = $(this).text();
+                alert(id);
+            });
+
+
+        });
+
+    </script>
+
+
+}

@@ -1,0 +1,12 @@
+﻿
+<div class="widget categories">
+    <h3>KATEGORİLER</h3>
+    <div class="main-content">
+        @foreach (var item in Model.Kategoriler)
+        {
+            <ul>
+                <li><a href="/Categories/Index/@item.Id">@item.Name<span>(@item.PostCount)</span></a></li>
+            </ul>
+        }
+    </div>
+</div>

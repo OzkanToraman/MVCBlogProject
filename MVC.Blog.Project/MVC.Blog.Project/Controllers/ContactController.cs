@@ -26,31 +26,33 @@ namespace MVC.Blog.Project.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult Contact(Message model)
-        {
+        [HttpPost][ValidateAntiForgeryToken][AllowAnonymous]
+        public ActionResult Contact(ContactViewModel model)
+        { 
             if (model!=null)
             {
-                var validator = new MessageValidator().Validate(model);
+                var validator = new MessageValidator().Validate(model.Mesaj);
                 if (validator.IsValid)
                 {
                     Kullanici k = _uow.GetRepo<Kullanici>()
-                        .Where(x => x.Email == "otoraman@outlook.com")
+                        .Where(x => x.Email == HttpContext.User.Identity.Name)
                         .FirstOrDefault();
                     if (k==null)
                     {
-                        model.MessageFrom = "Misafir";
+                        model.Mesaj.MessageFrom = "Misafir";
                     }
                     else
                     {
-                        model.UserId = k.Id;
-                        model.MessageFrom = k.Name; 
+                        model.Mesaj.MessageDate = DateTime.Now;
+                        model.Mesaj.UserId = k.Id;
+                        model.Mesaj.MessageFrom = k.Name + k.LastName; 
                     }
                     _uow
                         .GetRepo<Message>()
-                        .Add(model);
+                        .Add(model.Mesaj);
                     if (_uow.Commit()>0)
                     {
+                        ModelState.Clear();
                         ViewBag.Msg = "Mesajınız başarıyla gönderildi";
                     }
                 }

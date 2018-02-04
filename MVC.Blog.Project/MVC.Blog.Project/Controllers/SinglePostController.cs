@@ -21,28 +21,61 @@ namespace MVC.Blog.Project.Controllers
         {
             SiteHomeViewModel model = new SiteHomeViewModel();
 
-            model.Gonderi = _uow.GetRepo<Post>()
+            model.Gonderi =
+                _uow.GetRepo<Post>()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
-            model.Gonderiler = _uow.GetRepo<Post>()
-                .GetList();
-            model.Kategoriler = _uow.GetRepo<Category>()
+            model.Gonderiler = _uow
+                .GetRepo<Post>()
+                .GetList()
+                .OrderByDescending(x => x.PostDate)
+                .Take(3);
+            model.Kategoriler =
+                _uow.GetRepo<Category>()
                 .Where(x => x.IsDeleted == false);
-            model.Kullanici = _uow.GetRepo<Kullanici>()
+            model.Kullanici =
+                _uow.GetRepo<Kullanici>()
                 .Where(x => x.RoleId == 1)
                 .FirstOrDefault();
-            model.Yorumlar = _uow.GetRepo<Comments>()
-                .GetList();
+            model.Yorumlar =
+                _uow.GetRepo<Comments>()
+                .Where(x => x.IsDeleted == false && x.PostId==id)
+                .OrderByDescending(x => x.CommentDate);
+            model.LogUser = HttpContext.User.Identity.Name;
             return View(model);
         }
 
-        [HttpPost]
-        public JsonResult PostComment(Comments model)
+        public JsonResult PostComment(string Yorum, int GonderiId)
         {
+            var user = _uow.GetRepo<Kullanici>()
+                .Where(x => x.Email == HttpContext.User.Identity.Name)
+                .FirstOrDefault();
+
+            var yorumlar = new CommentViewModel
+            {
+                CommentBody = Yorum,
+                CommentDate = DateTime.Now.ToString(),
+                PostId = GonderiId,
+                Name = user.Name,
+                LastName = user.LastName,
+                ProfilPic = user.ProfilPic
+            };
+
+            Comments commentModel = new Comments()
+            {
+                CommentBody = yorumlar.CommentBody,
+                CommentDate = Convert.ToDateTime(yorumlar.CommentDate),
+                PostId = yorumlar.PostId,
+                UserId = user.Id,
+            };
+
             _uow.GetRepo<Comments>()
-                .Add(model);
+                .Add(commentModel);
             _uow.Commit();
-            return Json(model);
+
+
+            return Json(yorumlar, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

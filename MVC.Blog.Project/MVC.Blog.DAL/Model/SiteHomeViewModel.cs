@@ -13,6 +13,7 @@ namespace MVC.Blog.DAL.Model
         public Kullanici Kullanici { get; set; }
         public IEnumerable<Category> Kategoriler { get; set; }
         public IEnumerable<Comments> Yorumlar { get; set; }
-        public Comments Yorum { get; set; }
+        public string LogUser { get; set; }
+        public int? SayfaNo { get; set; }
     }
 }

@@ -7,7 +7,7 @@ namespace MVC.Blog.DAL.Data
     using System.Data.Entity.Spatial;
 
     [Table("About")]
-    public partial class About : EntityBase
+    public partial class About :EntityBase
     {
         [Key]
         public string AboutContent { get; set; }

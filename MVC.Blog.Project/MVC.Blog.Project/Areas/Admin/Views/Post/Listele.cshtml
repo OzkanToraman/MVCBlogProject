@@ -13,7 +13,6 @@
                     <th scope="col">#</th>
                     <th scope="col">BAŞLIK</th>
                     <th scope="col">YAYINLANMA TARİHİ</th>
-                    <th scope="col">DURUM</th>
                     <th scope="col">KATEGORİ</th>
                     <th scope="col">BEĞENİ SAYISI</th>
                     <th></th>
@@ -27,7 +26,6 @@
                         <th scope="row">@item.Id</th>
                         <td>@item.Title</td>
                         <td>@item.PostDate</td>
-                        <td>@item.Status.Name</td>
                         <td>@item.Category.Name</td>
                         <td>@item.LikeCount</td>
                         <td><a href="/Admin/Post/Guncelle/@item.Id" class="btn btn-primary btn-block">Güncelle</a></td>

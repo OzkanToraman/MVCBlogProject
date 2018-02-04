@@ -1,4 +1,4 @@
-﻿@model MVC.Blog.DAL.Data.Post
+﻿@model MVC.Blog.DAL.Model.PostViewModel
 
 <div class="kt-mainpanel">
     <div class="kt-pagebody">
@@ -11,36 +11,36 @@
                 <h4>Gönderiler</h4>
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.Post.Id)
 
                 <div class="form-group">
                     <label class="form-control-label col-md-2">Başlık:</label>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        @Html.TextBoxFor(model => model.Post.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Post.Title, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label col-md-2">İçerik:</label>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.PostBody, 10, 100, new { @class = "form-control", @id = "summernote" })
-                        @Html.ValidationMessageFor(model => model.PostBody, "", new { @class = "text-danger" })
+                        @Html.TextAreaFor(model => model.Post.PostBody, 10, 100, new { @class = "form-control", @id = "summernote" })
+                        @Html.ValidationMessageFor(model => model.Post.PostBody, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label col-md-2">Gönderi Tarihi:</label>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.PostDate, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.PostDate, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Post.PostDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Post.PostDate, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label col-md-2">Açıklama:</label>
                     <div class="col-md-10">
-                        @Html.TextAreaFor(model => model.Description, 10, 20, new { @class = "form-control" })
+                        @Html.TextAreaFor(model => model.Post.Description, 10, 20, new { @class = "form-control" })
                     </div>
                 </div>
 
@@ -53,30 +53,28 @@
                 <div class="form-group">
                     <label class="form-control-label col-md-2">Kategori:</label>
                     <div class="col-md-10">
-                        @Html.DropDownListFor(x => x.CategoryId, new SelectList(ViewBag.Kategoriler, "Value", "Text"), new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                        @Html.DropDownListFor(x => x.Post.CategoryId, new SelectList(ViewBag.Kategoriler, "Value", "Text"), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Post.CategoryId, "", new { @class = "text-danger" })
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label col-md-2">Özet:</label>
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Summary, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Summary, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => model.Post.Summary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Post.Summary, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
+                <div class="form-group">
+                    <label class="form-control-label col-md-2">Fotoğraf:</label>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Post.PostPic, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="form-control-label col-md-2">Etiketler:</label>
                     <div class="col-md-10">
-                        @Html.TextBoxFor(model => model.Tags, new { @class = "bootstrap-tagsinput", @type = "text", @data_role = "tagsinput" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label col-md-2">Durum:</label>
-                    <div class="col-md-10">
-                        @Html.DropDownListFor(x => x.StatusId, new SelectList(ViewBag.Durum, "Value", "Text"), new { @class = "form-control" })
+                        @Html.TextBoxFor(model => model.Post.Tags, new { @class = "bootstrap-tagsinput", @type = "text", @data_role = "tagsinput" })
                     </div>
                 </div>
 

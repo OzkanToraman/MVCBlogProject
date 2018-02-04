@@ -17,17 +17,7 @@
     @Styles.Render("~/bundlesLoginv2/styles")
 </head>
 <body>
-    @if (ViewBag.Msg != null)
-    {
-        if (ViewBag.IsSuccess)
-        {
-            <span class="alert alert-success">@ViewBag.Msg</span>
-        }
-        else
-        {
-            <span class="alert alert-danger">@ViewBag.Msg</span>
-        }
-    }
+
     <div class="signpanel-wrapper">
         <div class="signbox">
             <div class="signbox-header">
@@ -42,6 +32,11 @@
                         <label class="form-control-label">E-postanız:</label>
                         @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @type = "email", @placeholder = "E-posta adresinizi giriniz" })
                         <span class="text-danger">@Html.ValidationMessageFor(x => x.Email)</span>
+                        @if (ViewBag.Msg != null)
+                        {
+                            <span class="text-danger">@ViewBag.Msg</span>
+
+                        }
                     </div><!-- form-group -->
                     <div class="form-group">
                         <label class="form-control-label">Şifreniz:</label>

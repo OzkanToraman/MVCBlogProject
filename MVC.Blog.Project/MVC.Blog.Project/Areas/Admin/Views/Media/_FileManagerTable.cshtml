@@ -1,0 +1,49 @@
+﻿@using PagedList
+@using PagedList.Mvc
+
+
+<table class="table table-striped mg-b-0 mg-t-20">
+    <thead>
+        <tr>
+            <th class="wd-5p">
+                <label class="ckbox mg-b-0">
+                    <input type="checkbox" id="checkAll"><span></span>
+                </label>
+            </th>
+            <th>DOSYA İSMİ</th>
+            <th class="hidden-xs-down">YÜKLENME TARİHİ</th>
+            <th class="wd-5p"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="deleted_@item.Id">
+                <td class="valign-middle">
+                    <label class="ckbox mg-b-0" id="uploaded">
+                        <input type="checkbox" value="@item.Id"><span></span>
+                    </label>
+                </td>
+                <td>
+                    <img src="@item.Path" style="width:50px" />
+                    <span class="pd-l-5">@item.Name</span>
+                </td>
+                <td class="hidden-xs-down">---</td>
+                <td class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="btn pd-y-3 tx-gray-500 hover-info"><i class="icon ion-more"></i></a>
+                    <div class="dropdown-menu dropdown-menu-right pd-10">
+                        <nav class="nav nav-style-1 flex-column">
+                            <a href="" class="nav-link">Bilgi</a>
+                            <a href="" class="nav-link">Sil</a>
+                        </nav>
+                    </div><!-- dropdown-menu -->
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
+
+
+@*@Html.PagedListPager(Model.Yuklenenler, _sayfaNo => Url.Action("FileManager", "Media", new { SayfaNo = _sayfaNo }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "tablo" }));*@

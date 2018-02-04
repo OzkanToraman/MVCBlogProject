@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using MVC.Blog.Repository.UOW.Abstract;
 using MVC.Blog.DAL.Data;
 using MVC.Blog.BLL.Validations.CategoryValidations;
+using MVC.Blog.Project.Models;
 
 namespace MVC.Blog.Project.Areas.Admin.Controllers
 {
+
     public class CategoryController : BaseController
     {
 

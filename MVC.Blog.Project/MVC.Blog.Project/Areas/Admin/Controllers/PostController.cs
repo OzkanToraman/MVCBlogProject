@@ -70,19 +70,20 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             var validator = new PostAddValidator().Validate(model.Post);
             if (validator.IsValid)
             {
-                if (tags != null)
+                if (model.Post.Tags != null)
                 {
                     foreach (var item in tags)
                     {
                         model.Post.Tags = item.ToString();
                     }
                 }
+                model.Post.UserId = 1;              
                 model.Post.PostDate = DateTime.Now;
                 _uow.GetRepo<Post>()
                     .Add(model.Post);
 
                 #region KategoriGönderiSayısıKontrol
-                int postCount = _uow.GetRepo<Category>()
+                _uow.GetRepo<Category>()
                             .GetById(model.Post.CategoryId)
                             .PostCount++;
                 #endregion
@@ -103,6 +104,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             {
                 validator.Errors.ToList().ForEach(x => ModelState.AddModelError(x.PropertyName, x.ErrorMessage));
             }
+            CategoryFill();
             return View();
         }
 
@@ -113,8 +115,12 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
             CategoryFill();
-            StatusFill();
-            return View(model);
+            PostViewModel m = new PostViewModel()
+            {
+                Post = model,
+                 PostedPic=null,
+            };
+            return View(m);
         }
 
         [HttpPost]
@@ -177,24 +183,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             TempData["cat"] = cList;
             #endregion
         }
-        void StatusFill()
-        {
-            #region StatusCombobox
-            IEnumerable<Status> statusmodel = _uow.GetRepo<Status>()
-                .GetList();
 
-            List<SelectListItem> statusList = new List<SelectListItem>();
-            foreach (var item in statusmodel)
-            {
-                statusList.Add(new SelectListItem
-                {
-                    Text = item.Name,
-                    Value = item.Id.ToString()
-                });
-            }
-            ViewBag.Durum = statusList;
-            #endregion
-        }
         void RoleFill()
         {
             #region StatusCombobox

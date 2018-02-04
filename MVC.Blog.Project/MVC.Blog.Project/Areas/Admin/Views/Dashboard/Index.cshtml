@@ -1,0 +1,42 @@
+﻿
+<div class="kt-mainpanel">
+    <div class="kt-pagebody">
+
+        Oturum Açan Kullanıcı : @ViewBag.UserName
+    </div>
+</div>
+
+@section notifications{
+    
+    <div class="dropdown dropdown-notification">
+    <a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
+        <i class="icon ion-ios-bell-outline tx-24"></i>
+        <!-- start: if statement -->
+        <span class="square-8 bg-danger pos-absolute t-15 r-0 rounded-circle"></span>
+        <!-- end: if statement -->
+    </a>
+    <div class="dropdown-menu wd-300 pd-0-force">
+        <div class="dropdown-menu-header">
+            <label>Mesajlar</label>
+            <a href="">Tümünü okundu olarak işaretle</a>
+        </div><!-- d-flex -->
+        <div class="media-list">
+            <!-- loop starts here -->
+            <a href="" class="media-list-link read">
+                <div class="media pd-x-20 pd-y-15">
+                    <img src="../img/img8.jpg" class="wd-40 rounded-circle" alt="">
+                    <div class="media-body">
+                        <p class="tx-13 mg-b-0"><strong class="tx-medium">Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
+                        <span class="tx-12">October 03, 2017 8:45am</span>
+                    </div>
+                </div><!-- media -->
+            </a>
+            <!-- loop ends here -->
+            <div class="media-list-footer">
+                <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Tüm mesajları göster</a>
+            </div>
+        </div><!-- media-list -->
+    </div><!-- dropdown-menu -->
+</div><!-- dropdown -->
+    
+    }

@@ -1,4 +1,5 @@
-﻿@using MVC.Blog.DAL.Model
+﻿
+@using MVC.Blog.DAL.Model
 @model SiteHomeViewModel
 
 
@@ -11,9 +12,9 @@
                 <div class="item">
                     <img class="img-responsive" src="@item.PostPic" alt="slide">
                     <div class="info-box">
-                        <span>SLIDER AÇIKLAMASI</span>
+                        @*<span>SLIDER AÇIKLAMASI</span>*@
                         <h2 class="title"><a href="/SinglePost/SinglePost/@item.Id">@item.Title</a></h2>
-                        <p>@item.Summary</p>
+                        <p id="summary">@item.Summary</p>
                         <a href="/SinglePost/SinglePost/@item.Id" class="btn">OKU</a>
                     </div>
                 </div>
@@ -27,88 +28,102 @@
     <div class="container">
         <div class="row">
             <!-- Main Content -->
+
             <div class="col-sm-9">
                 <div class="main-content">
-                    @foreach (var item in Model.Gonderiler)
-                    {
-                        <article class="list">
-                            <div class="row">
-                                <div class="col-xs-5">
-                                    <img class="img-responsive" src="@item.PostPic" alt="posts">
-                                </div>
-                                <div class="col-xs-7">
-                                    <header>
-                                        <a href="#"><span class="tag">moments</span></a><br>
-                                        <a href="/SinglePost/SinglePost/@item.Id"><h2 class="title">@item.Title</h2></a>
-                                    </header>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odit provident error blanditiis laborum, modi velit eum a impedit inventore molestias repellendus illum cum voluptatum harum! Officia molestiae, impedit autem voluptatibus.</p>
-                                    <footer>
-                                        <span class="date-author"><i>@item.PostDate</i><a href="#">@item.Kullanici.Role.RoleName</a></span>
-                                    </footer>
-                                </div>
-                            </div>
-                        </article>
-                    }
-                    <div class="pagination">
-                        <a href="#" class="btn olderpost">SONRAKİ SAYFA</a>
+
+                    <div id="icerik">
+                        @Html.Partial("_Icerik", Model)
                     </div>
+
+                    @if (ViewBag.TotalPage >= Model.SayfaNo)
+                    {
+                        if (Model.SayfaNo == 1)
+                        {
+                            <div class="pagination">
+                                @*<input type="submit" class="btn olderpost" id="next" value="SONRAKİ SAYFA" />*@
+                                <a class="btn olderpost" id="next">SONRAKİ SAYFA</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="pagination">
+                                <a href="/Home/Index/?Page=@Model.SayfaNo" class="btn newrpost" id="previous">ÖNCEKİ SAYFA</a>
+                                <a href="/Home/Index/?Page=@Model.SayfaNo" class="btn olderpost" id="next">SONRAKİ SAYFA</a>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="pagination">
+                            <a href="/Home/Index/?Page=@Model.SayfaNo" class="btn newrpost" id="previous">ÖNCEKİ SAYFA</a>
+                        </div>
+                    }
                 </div>
             </div>
+
             <!-- /. End Main Content -->
             <!-- Sidebar -->
             <div class="col-sm-3">
                 <aside class="sidebar">
-                    <div class="widget aboutme">
-                        <h3>HAKKIMDA</h3>
-                        <div class="main-content">
-                            <img class="img-circle img-responsive" src="@Model.Kullanici.ProfilPic" alt="about">
-                            <span>@Model.Kullanici.Name</span>
-                            <p>
-                                @Model.Kullanici.Hakkimda
-                                <a href="/Home/About/">daha fazla...</a>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="widget categories">
-                        <h3>KATEGORİLER</h3>
-                        <div class="main-content">
-                            @foreach (var item in Model.Kategoriler)
-                            {
-                                <ul>
-                                    <li><a href="/Categories/Index/@item.Id">@item.Name<span>(@item.PostCount)</span></a></li>
-                                </ul>
-                            }
-                        </div>
-                    </div>
-                    <div class="widget recent-posts">
-                        <h3>SON GÖNDERİLER</h3>
-                        <div class="main-content">
-                            <ul>
-                                @foreach (var item in Model.Gonderiler)
-                                {
-                                    <li>
-                                        <img src="@item.PostPic" alt="post-1">
-                                        <a href="#"><h5 class="title">@item.Title</h5></a>
-                                        <a href="#"><p>@item.PostDate</p></a>
-                                    </li>
-                                }
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="widget tags">
-                        <h3>ETİKETLER</h3>
-                        <div class="main-content">
-                            <a href="#">audio</a>
-                            <a href="#">fashion</a>
-                            <a href="#">moments</a>
-                            <a href="#">travel</a>
-                            <a href="#">life</a>
-                            <a href="#">gallery</a>
-                        </div>
-                    </div>
+                    @Html.Partial("_Hakkimda", Model)
+                    @Html.Partial("_Kategoriler", Model)
+                    @Html.Partial("_SonGonderiler", Model)
+
+                    @if (Model.LogUser == "")
+                    {
+                        <span class="btn btn-default btn-block" id="">
+                            <a href="/Admin/Account/Login">Giriş Yap</a>
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="btn btn-default btn-block" id="">
+                            <a href="/Admin/Account/LogOut">Çıkış Yap</a>
+                        </span>
+                    }
                 </aside>
             </div>
             <!-- /. End Sidebar -->
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script>
+
+
+        $(document).ready(function () {
+            $("#logButton").click(function () {
+                var user = $("#username").val();
+                var pass = $("#password").val();
+
+                $.ajax({
+                    url: '/Home/Giris?UserName=' + user + '&Password=' + pass,
+                    type: "GET",
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+
+                    }
+
+                })
+
+            })
+        });
+
+        var currentPage = @Model.SayfaNo;
+        $(document).ready(function () {
+            $("#next").click(function () {
+                currentPage++;
+                $(this).attr("href", "/Home/Index?Page="+currentPage)
+            });
+            $("#previous").click(function () {
+                currentPage--;
+                $(this).attr("href", "/Home/Index?Page="+currentPage)
+            });
+        });
+
+    </script>
+}

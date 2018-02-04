@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using MVC.Blog.Repository.UOW.Abstract;
 using MVC.Blog.DAL.Data;
 using System.IO;
+using PagedList;
+using MVC.Blog.Project.Models;
 
 namespace MVC.Blog.Project.Areas.Admin.Controllers
 {
@@ -16,12 +18,20 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         }
 
         // GET: Admin/Media
-        public ActionResult FileManager()
+        public ActionResult FileManager(FileManagerModel model)
         {
-            var model =
-                _uow.GetRepo<MediaUpload>()
+            int _sayfaNo = model.SayfaNo ?? 1;
+            int pageSize = 10;
+            model.Yuklenenler = _uow.GetRepo<MediaUpload>()
                 .GetList()
-                .OrderByDescending(x => x.Id);
+                .OrderByDescending(x => x.Id)
+                .ToPagedList<MediaUpload>(_sayfaNo, pageSize);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_FileManagerTable",model);
+            }
+
             return View(model);
         }
 
@@ -61,6 +71,20 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             }
 
             return RedirectToAction("FileManager");
+        }
+
+        public JsonResult DeleteUpload(string Secilenler)
+        {
+            string[] model = Secilenler.Split(' ');
+
+            foreach (string item in model)
+            {
+                _uow.GetRepo<MediaUpload>()
+                    .Delete(Convert.ToInt32(item));
+            }
+            _uow.Commit();
+
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

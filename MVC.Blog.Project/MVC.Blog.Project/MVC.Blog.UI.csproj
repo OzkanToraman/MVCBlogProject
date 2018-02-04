@@ -96,6 +96,14 @@
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -188,6 +196,31 @@
     <Content Include="Content\Site\css\face.css" />
     <Content Include="Content\Site\css\fontello.css" />
     <Content Include="Content\Site\css\owl.carousel.css" />
+    <Content Include="Content\Site\images\aboutme.jpg" />
+    <Content Include="Content\Site\images\big-aboutme.jpg" />
+    <Content Include="Content\Site\images\footerlogo.png" />
+    <Content Include="Content\Site\images\Insta-1.jpg" />
+    <Content Include="Content\Site\images\Insta-2.jpg" />
+    <Content Include="Content\Site\images\Insta-3.jpg" />
+    <Content Include="Content\Site\images\Insta-4.jpg" />
+    <Content Include="Content\Site\images\Insta-5.jpg" />
+    <Content Include="Content\Site\images\Insta-6.jpg" />
+    <Content Include="Content\Site\images\Insta-7.jpg" />
+    <Content Include="Content\Site\images\Insta-8.jpg" />
+    <Content Include="Content\Site\images\logo.png" />
+    <Content Include="Content\Site\images\post-1.jpg" />
+    <Content Include="Content\Site\images\post-2.jpg" />
+    <Content Include="Content\Site\images\post-3.jpg" />
+    <Content Include="Content\Site\images\post-4.jpg" />
+    <Content Include="Content\Site\images\post-5.jpg" />
+    <Content Include="Content\Site\images\post-6.jpg" />
+    <Content Include="Content\Site\images\slide-1.jpg" />
+    <Content Include="Content\Site\images\slide-2.jpg" />
+    <Content Include="Content\Site\images\slide-3.jpg" />
+    <Content Include="Content\Site\images\slide-4.jpg" />
+    <Content Include="Content\Site\images\typo-1.jpg" />
+    <Content Include="Content\Site\images\typo-2.jpg" />
+    <Content Include="Content\Site\js\01jquery-1.11.3.min.js" />
     <Content Include="Content\Site\js\02bootstrap.min.js" />
     <Content Include="Content\Site\js\04main.js" />
     <Content Include="Content\Site\js\03owl.carousel.min.js" />
@@ -214,7 +247,11 @@
     <Content Include="Areas\Admin\Views\Profile\Profile.cshtml" />
     <Content Include="Areas\Admin\Views\User\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\User\Guncelle.cshtml" />
-    <Content Include="Areas\Admin\Views\Dashboard\Home.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Message\Inbox.cshtml" />
+    <Content Include="Areas\Admin\Views\Message\Trash.cshtml" />
+    <Content Include="Areas\Admin\Views\Comment\Listele.cshtml" />
+    <Content Include="Areas\Admin\Views\Media\_FileManagerTable.cshtml" />
     <None Include="Content\Adminv2\css\fonts\ionicons.eot" />
     <Content Include="Content\Adminv2\css\fonts\ionicons.eot_v=2.0.0%2523iefix" />
     <Content Include="Content\Adminv2\css\fonts\ionicons.svg" />
@@ -230,21 +267,23 @@
     <None Include="Content\Site\css\font\fontello.ttf" />
     <None Include="Content\Site\css\font\fontello.woff2" />
     <None Include="Content\Site\css\font\fontello.woff" />
-    <Content Include="Content\Site\js\01jquery-1.11.3.min.js" />
-    <None Include="Scripts\jquery-3.2.1.intellisense.js" />
     <Content Include="Media\Images\10baeedf-2aa5-483f-811d-a3619d124514.jpg" />
     <Content Include="Media\Images\8f3648d1-69e6-4c79-87ac-8da5e47cb8b3.jpg" />
     <Content Include="Media\Images\a31440a0-3463-410d-9312-4215d98f2d02.jpg" />
-    <Content Include="Media\Images\img11.jpg" />
-    <Content Include="Media\Images\img1.jpg" />
-    <Content Include="Scripts\jquery-3.2.1.js" />
-    <Content Include="Scripts\jquery-3.2.1.min.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.js" />
-    <Content Include="Scripts\jquery-3.2.1.slim.min.js" />
+    <None Include="Scripts\jquery-1.11.3.intellisense.js" />
+    <Content Include="Media\Images\c3c5c1df-0964-4c38-820e-7412187c7117.jpg" />
+    <Content Include="Scripts\jquery-1.11.3.js" />
+    <Content Include="Scripts\jquery-1.11.3.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
@@ -252,6 +291,7 @@
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
     <Compile Include="Areas\Admin\Controllers\BaseController.cs" />
     <Compile Include="Areas\Admin\Controllers\CategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CommentController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MediaController.cs" />
     <Compile Include="Areas\Admin\Controllers\MessageController.cs" />
@@ -267,6 +307,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\FileManagerModel.cs" />
+    <Compile Include="Models\UserAuthorize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -284,14 +326,17 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Ekle.cshtml" />
     <Content Include="Areas\Admin\Views\Category\Listele.cshtml" />
-    <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.2.1.min.map" />
     <Content Include="Views\Shared\_LayoutPageSite.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\SinglePost\SinglePost.cshtml" />
     <Content Include="Views\About\About.cshtml" />
     <Content Include="Views\Contact\Contact.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
+    <Content Include="Scripts\jquery-1.11.3.min.map" />
+    <Content Include="Views\Home\_Hakkimda.cshtml" />
+    <Content Include="Views\Home\_Kategoriler.cshtml" />
+    <Content Include="Views\Home\_SonGonderiler.cshtml" />
+    <Content Include="Views\Home\_Icerik.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -301,13 +346,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Areas\Admin\Views\Message\" />
     <Folder Include="Areas\Admin\Views\Page\" />
     <Folder Include="Content\Images\" />
-    <Folder Include="Content\Site\images\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MVC.Blog.BLL\MVC.Blog.BLL.csproj">

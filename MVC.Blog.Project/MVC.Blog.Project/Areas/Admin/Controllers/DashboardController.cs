@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC.Blog.Project.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,7 +11,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
     public class DashboardController : Controller
     {
         [OutputCache(Duration = 30)]
-        public ActionResult Home()
+        public ActionResult Index()
         {
             ViewBag.UserName = HttpContext.User.Identity.Name;
             return View();

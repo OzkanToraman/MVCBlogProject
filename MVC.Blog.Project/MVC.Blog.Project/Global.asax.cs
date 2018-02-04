@@ -17,5 +17,6 @@ namespace MVC.Blog.Project
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
     }
 }
