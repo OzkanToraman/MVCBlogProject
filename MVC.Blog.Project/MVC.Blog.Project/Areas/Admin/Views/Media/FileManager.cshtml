@@ -1,7 +1,6 @@
-﻿@using PagedList
-@using PagedList.Mvc
-@using MVC.Blog.Project.Models
-@model FileManagerModel
+﻿
+@using MVC.Blog.DAL.Data
+@model IEnumerable<MediaUpload>
 
 
 <div class="kt-mainpanel">
@@ -20,16 +19,25 @@
                         <div class="btn-group mg-b-0 mg-r-10 hidden-lg-up">
                         </div><!-- btn-group -->
                     </div>
+
+                    @*@Ajax.ActionLink("İleri", "FileManager", new AjaxOptions
+               {
+                   InsertionMode = InsertionMode.Replace,
+                   UpdateTargetId = "tablo",
+                   HttpMethod = "GET"
+               })*@
+                
                     <div class="mg-l-auto">
                         <div class="btn-group mg-b-0 mg-l-5">
                             <button id="trash" class="btn btn-secondary disabled" data-toggle="tooltip" data-placement="top" title="Silmek için tıklayın"><i class="icon ion-ios-trash-outline tx-20"></i></button>
-                            <button class="btn btn-secondary disabled"><i class="icon ion-ios-arrow-back tx-20"></i></button>
-                            <button class="btn btn-secondary"><i class="icon ion-ios-arrow-forward tx-20"></i></button>
+                            <button class="btn btn-secondary disabled" id="previous"><i class="icon ion-ios-arrow-back tx-20"></i></button>
+                            <button class="btn btn-secondary" id="next"><i class="icon ion-ios-arrow-forward tx-20"></i></button>
                         </div><!-- btn-group -->
                     </div>
+                
                 </div><!-- content-body-header -->
                 <div id="tablo">
-                    @Html.Partial("_FileManagerTable", Model.Yuklenenler)
+                    @Html.Partial("_FileManagerTable", Model)
                 </div>
 
 
@@ -79,9 +87,42 @@
                 var id = $(this).text();
                 alert(id);
             });
-
-
         });
+
+        var currentPage = @ViewBag.currentPage
+        $(document).ready(function () {
+            $("#next").click(function () {
+                currentPage++;
+                $.ajax({
+                    url: "/Admin/Media/FileManager?Page=" + currentPage,
+                    type: "POST",
+                    datatype: "html",
+                    success: function (response) {
+                        $("#tablo").html(response);
+                    },
+                    error: function () {
+                        alert("Hata!");
+                    }
+                });
+            });
+            $("#previous").click(function () {
+                currentPage--;
+                $.ajax({
+                    url: "/Admin/Media/FileManager?Page=" + currentPage,
+                    type: "POST",
+                    datatype: "html",
+                    success: function (response) {
+                        $("#tablo").html(response);
+                    },
+                    error: function () {
+                        alert("Hata!");
+                    }
+                });
+            });
+        });
+
+
+
 
     </script>
 

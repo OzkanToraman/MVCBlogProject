@@ -11,28 +11,32 @@ using MVC.Blog.Project.Models;
 
 namespace MVC.Blog.Project.Areas.Admin.Controllers
 {
-    [UserAuthorize]
+    //[UserAuthorize]
     public class MediaController : BaseController
     {
         public MediaController(IUnitOfWork uow) : base(uow)
         {
         }
-
+        IEnumerable<MediaUpload> model = new List<MediaUpload>();
         // GET: Admin/Media
-        public ActionResult FileManager(FileManagerModel model)
+        public ActionResult FileManager(int? Page)
         {
-            int _sayfaNo = model.SayfaNo ?? 1;
-            int pageSize = 10;
-            model.Yuklenenler = _uow.GetRepo<MediaUpload>()
+            int _sayfaNo = Page ?? 1;
+            ViewBag.currentPage = _sayfaNo;
+            model = _uow.GetRepo<MediaUpload>()
                 .GetList()
                 .OrderByDescending(x => x.Id)
-                .ToPagedList<MediaUpload>(_sayfaNo, pageSize);
+                .Skip((_sayfaNo - 1) * 5)
+                .Take(5);
 
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("_FileManagerTable",model);
-            }
-
+            //if (Request.IsAjaxRequest())
+            //{
+            //    model = _uow.GetRepo<MediaUpload>()
+            //    .GetList()
+            //    .OrderByDescending(x => x.Id)
+            //    .Take(3);
+            //    return PartialView("_FileManagerTable", model);
+            //}
             return View(model);
         }
 
@@ -86,6 +90,17 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             _uow.Commit();
 
             return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult FileManager(int Page)
+        {
+            var model = _uow.GetRepo<MediaUpload>()
+                .GetList()
+                .OrderByDescending(x => x.Id)
+                .Skip((Page - 1) * 5)
+                .Take(5);
+
+            return PartialView("_FileManagerTable",model);
         }
     }
 }
