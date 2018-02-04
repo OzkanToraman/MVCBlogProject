@@ -48,5 +48,26 @@ namespace MVC.Blog.Project.Controllers
 
             return View(model);
         }
+
+        //[HttpPost]
+        //public ActionResult Index(int Page)
+        //{
+        //    SiteHomeViewModel model = new SiteHomeViewModel();
+        //    model.Gonderiler = _uow.GetRepo<Post>()
+        //        .GetList()
+        //        .Skip((Page - 1) * 2)
+        //        .Take(2);
+        //    model.SayfaNo = sayfaNo;
+        //    model.Kategoriler = _uow
+        //        .GetRepo<Category>()
+        //        .Where(x => x.IsDeleted == false);
+        //    model.Kullanici = _uow
+        //        .GetRepo<Kullanici>()
+        //        .Where(x => x.RoleId == 1)
+        //        .FirstOrDefault();
+        //    model.LogUser = HttpContext.User.Identity.Name;
+
+        //    return PartialView("_Icerik",model);
+        //}
     }
 }

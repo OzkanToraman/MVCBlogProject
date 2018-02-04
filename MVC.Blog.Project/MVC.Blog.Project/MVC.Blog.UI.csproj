@@ -307,7 +307,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\FileManagerModel.cs" />
     <Compile Include="Models\RolesAttribute.cs" />
     <Compile Include="Models\UserAuthorize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
