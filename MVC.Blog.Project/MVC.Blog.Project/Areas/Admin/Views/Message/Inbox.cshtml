@@ -20,6 +20,7 @@
                         </div>
                         <div class="btn-group mg-b-0 hidden-xs-down">
                             <button id="trash" class="btn btn-secondary disabled" data-toggle="tooltip" data-placement="top" title="Silmek için tıklayın"><i class="icon ion-ios-trash-outline tx-20"></i></button>
+                            <button id="read" class="btn btn-default btn-block" data-toggle="tooltip" data-placement="top" title="Okundu olarak işaretle">Oku</button>
                         </div><!-- btn-group -->
                     </div>
                     <div class="mg-l-auto">
@@ -98,6 +99,28 @@
                         $.each(response, function (index, value) {
                             $("span").remove("#deleted_" + value);
                         });
+                    },
+                    error: function (xhr) {
+                        alert('İşlem başarısız!');
+                    }
+
+                });
+            });
+
+            $("#read").click(function () {
+                var Secilenler = "";
+                $('#message :checked').each(function (index, item) {
+                    //Secilenler.push($(this).val());
+                    Secilenler += $(item).val() + " ";
+                });
+
+                $.ajax({
+                    url: "/Message/Inbox/?Secilenler=" + Secilenler,
+                    type: "POST",
+                    datatype: "json",
+                    success: function (response) {
+                        console.log(response);
+                        $(".list-group mailbox-list-group").html(response);
                     },
                     error: function (xhr) {
                         alert('İşlem başarısız!');

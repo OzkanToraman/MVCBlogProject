@@ -25,11 +25,25 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
 
             return View(model);
         }
-
+        [HttpPost]
+        public JsonResult Inbox(string Secilenler)
+        {
+           
+            string[] model = Secilenler.Split(' ');
+            foreach (string item in model)
+            {
+                _uow.GetRepo<Message>()
+                    .GetById(Convert.ToInt32(item))
+                    .IsRead=true;              
+            }
+            _uow.Commit();
+            return Json(model);
+        }
 
         public ActionResult Trash()
         {
-            IEnumerable<Message> model = _uow.GetRepo<Message>()
+            IEnumerable<Message> model = _uow
+                .GetRepo<Message>()
                 .Where(x => x.IsDeleted == true);
             return View(model);
         }
@@ -37,7 +51,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
 
         public JsonResult DeleteInbox(string Secilenler)
         {
-            
+
             string[] model = Secilenler.Split(' ');
             Message msg = new Message();
 
@@ -46,6 +60,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 msg = _uow.GetRepo<Message>()
                     .GetById(Convert.ToInt32(item));
                 msg.IsDeleted = true;
+                msg.IsRead = true;
             }
 
             _uow.Commit();
@@ -62,7 +77,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                     .Delete(Convert.ToInt32(item));
             }
             _uow.Commit();
-            return Json(model,JsonRequestBehavior.AllowGet);
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
 
     }

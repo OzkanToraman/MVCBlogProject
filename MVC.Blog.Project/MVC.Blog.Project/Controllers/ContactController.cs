@@ -39,7 +39,8 @@ namespace MVC.Blog.Project.Controllers
                         .FirstOrDefault();
                     if (k==null)
                     {
-                        model.Mesaj.MessageFrom = "Misafir";
+                        model.Mesaj.MessageFrom = model.Mesaj.Email;
+                        model.Mesaj.MessageDate = DateTime.Now;
                     }
                     else
                     {
