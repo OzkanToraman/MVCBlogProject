@@ -13,16 +13,16 @@
                 <div class="col-md-4 col-lg-3">
                     <label class="content-left-label">Profil Fotoğrafı</label>
                     <figure class="edit-profile-photo">
-                        <img src="@Model.ProfilPic" class="img-fluid" alt="">
-                        <input type="file" class="img-fluid" accept="image/jpeg" />
+                        <img src="@Model.ProfilPic" class="img-fluid" alt="" id="profilePicImg">
+                        <input type="file" id="profilePicUpload" name="profilePicUpload" class="img-fluid" accept="image/jpeg" />
                     </figure>
-                    @*<button type="button" onclick="SavePic()" class="btn btn-primary">Yükle</button>*@
+                    @*<button class="btn btn-outline-success btn-block mg-b-10" id="uploadImg">Yükle</button>*@
                 </div><!-- col-3 -->
                 <div class="col-md-8">
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.Id)
-                        @Html.HiddenFor(model=> model.ProfilPic)
+                        @Html.HiddenFor(model => model.ProfilPic)
                         <div class="form-group">
                             <label class="control-label col-md-2">Ad:</label>
                             <div class="col-md-10">
@@ -88,7 +88,7 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Kaydet" class="btn btn-default" />
+                                <input type="submit" value="Kaydet" class="btn btn-outline-primary btn-block mg-b-10" />
                             </div>
                         </div>
                     </div>
@@ -98,3 +98,35 @@
     }
 
 </div>
+
+@section scripts{
+
+    <script>
+
+        //$(document).ready(function () {
+        //    $("#uploadImg").click(function () {
+
+        //        var file_data = $("#profilePicUpload").get(0);
+        //        var form_data = new FormData();
+        //        form_data.append("#profilePicUpload", file_data);
+        //        $.ajax({
+        //            url: "/User/JsonUploadImage",
+        //            data:form_data,
+        //            type:"GET",
+        //            datatype: "json",
+        //            success: function (response) {
+        //                alert(response);
+        //            }
+        //        })
+        //    });
+        //});
+
+
+
+    </script>
+
+
+
+
+
+}

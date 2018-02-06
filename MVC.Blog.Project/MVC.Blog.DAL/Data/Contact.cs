@@ -9,7 +9,7 @@ namespace MVC.Blog.DAL.Data
     [Table("Contact")]
     public partial class Contact :EntityBase
     {
-        [Key]
+        public int Id { get; set; }
         public string ContactContent { get; set; }
     }
 }

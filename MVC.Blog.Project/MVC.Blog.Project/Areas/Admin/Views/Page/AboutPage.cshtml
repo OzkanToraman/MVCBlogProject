@@ -1,11 +1,11 @@
 ﻿
 @using MVC.Blog.DAL.Data
-@model Contact
+@model About
 
 
 <div class="kt-mainpanel">
     <div class="kt-pagetitle">
-        <h5>İletişim Sayfası Düzenle</h5>
+        <h5>Hakkında Sayfası Düzenle</h5>
     </div><!-- kt-pagetitle -->
     <div class="kt-pagebody">
         @if (TempData["Msg"] != null)
@@ -19,9 +19,9 @@
 
             <div class="card pd-20 pd-sm-40 mg-t-10">
                 <h6>İçerik:<span class="tx-danger">*</span></h6>
-                @Html.HiddenFor(x=>x.Id)
-                @Html.TextAreaFor(x => x.ContactContent, new { @class = "form-input", @id = "summernote" })
-                <span class="text-danger">@Html.ValidationMessageFor(x => x.ContactContent)</span>
+                @Html.HiddenFor(x => x.Id)
+                @Html.TextAreaFor(x => x.AboutContent, new { @class = "form-input", @id = "summernote" })
+                <span class="text-danger">@Html.ValidationMessageFor(x => x.AboutContent)</span>
             </div>
 
             <div class="card pd-20 pd-sm-40 mg-t-10">

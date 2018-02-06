@@ -25,14 +25,35 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpPost]
+        [HttpPost][ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult ContactPage(Contact model)
         {
             _uow
                 .GetRepo<Contact>()
                 .Update(model);
+            if (_uow.Commit() > 0)
+                TempData["Msg"] = "Güncelleme başarılı";
+            return View();
+        }
+
+        public ActionResult AboutPage()
+        {
+            About model = _uow
+                .GetRepo<About>()
+                .GetList()
+                .FirstOrDefault();
+            return View(model);
+        }
+
+        [HttpPost][ValidateInput(false)][ValidateAntiForgeryToken]
+        public ActionResult AboutPage(About model)
+        {
             _uow
-                .Commit();
+                .GetRepo<About>()
+                .Update(model);
+            if (_uow.Commit() > 0)
+                TempData["Msg"] = "Güncelleme başarılı";
             return View();
         }
     }

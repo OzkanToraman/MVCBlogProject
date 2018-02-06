@@ -58,8 +58,8 @@
 
                                     @if (!item.IsRead)
                                     {
-                                        <h6 class="tx-inverse tx-14 mg-b-0"><b>@item.Title</b></h6>
-                                        <p class="mg-b-0 tx-13"><b>@item.MessageBody</b></p>
+                                        <h6 class="tx-inverse tx-14 mg-b-0" id="messageTitle_@item.Id" style="font-weight:bold">@item.Title</h6>
+                                        <p class="mg-b-0 tx-13" id="messageBody_@item.Id" style="font-weight:bold">@item.MessageBody</p>
                                     }
                                     else
                                     {
@@ -121,7 +121,9 @@
                     success: function (response) {
                         console.log(response);
                         $.each(response, function (index, value) {
-                            $("#messageTitle_" + value).css('font-style', 'italic');
+                            $("#messageTitle_" + value).css('font-weight', 'normal');
+                            $("#messageBody_" + value).css('font-weight', 'normal');
+                            $("#deleted_" + value).filter(":checkbox").prop("checked", false);
                         });
                     },
                     error: function (xhr) {

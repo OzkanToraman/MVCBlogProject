@@ -64,7 +64,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Guncelle(int id,UserUpdateModel model)
+        public ActionResult Guncelle(UserUpdateModel model)
         {
             if (model.kullanici != null)
             {
@@ -132,5 +132,6 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
 
             return upload;
         }
+
     }
 }

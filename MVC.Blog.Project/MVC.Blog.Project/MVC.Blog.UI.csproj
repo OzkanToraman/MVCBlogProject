@@ -253,6 +253,7 @@
     <Content Include="Areas\Admin\Views\Comment\Listele.cshtml" />
     <Content Include="Areas\Admin\Views\Media\_FileManagerTable.cshtml" />
     <Content Include="Areas\Admin\Views\Page\ContactPage.cshtml" />
+    <Content Include="Areas\Admin\Views\Page\AboutPage.cshtml" />
     <None Include="Content\Adminv2\css\fonts\ionicons.eot" />
     <Content Include="Content\Adminv2\css\fonts\ionicons.eot_v=2.0.0%2523iefix" />
     <Content Include="Content\Adminv2\css\fonts\ionicons.svg" />
