@@ -1,0 +1,59 @@
+﻿
+@using MVC.Blog.DAL.Data
+@model Contact
+
+
+<div class="kt-mainpanel">
+    <div class="kt-pagetitle">
+        <h5>İletişim Sayfası Düzenle</h5>
+    </div><!-- kt-pagetitle -->
+    <div class="kt-pagebody">
+
+        @if (ViewBag.Msg != null)
+        {
+            if (ViewBag.IsSuccess)
+            {
+                <span class="alert alert-success">@ViewBag.Msg</span>
+            }
+            else
+            {
+                <span class="alert alert-danger">@ViewBag.Msg</span>
+            }
+        }
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="card pd-20 pd-sm-40 mg-t-10">
+                <h6>İçerik:<span class="tx-danger">*</span></h6>
+                @Html.TextAreaFor(x => x.ContactContent, new { @class = "form-input", @id = "summernote" })
+                <span class="text-danger">@Html.ValidationMessageFor(x => x.ContactContent)</span>
+            </div>
+
+            <div class="card pd-20 pd-sm-40 mg-t-10">
+                <input type="submit" name="name" value="Kaydet" class="btn btn-default" />
+            </div>
+        }
+
+    </div><!-- kt-pagebody -->
+</div><!-- kt-mainpanel -->
+
+
+@section scripts{
+    <script>
+        $(function () {
+            'use strict';
+
+            // Inline editor
+            var editor = new MediumEditor('.editable');
+
+            // Summernote editor
+            $('#summernote').summernote({
+                height: 150,
+                tooltip: false
+            })
+        });
+    </script>
+
+}

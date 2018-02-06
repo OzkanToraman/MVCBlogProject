@@ -63,8 +63,8 @@
                                     }
                                     else
                                     {
-                                        <h6 class="tx-inverse tx-14 mg-b-0">@item.Title</h6>
-                                        <p class="mg-b-0 tx-13">@item.MessageBody</p>
+                                        <h6 class="tx-inverse tx-14 mg-b-0" id="messageTitle_@item.Id">@item.Title</h6>
+                                        <p class="mg-b-0 tx-13" id="messageBody_@item.Id">@item.MessageBody</p>
                                     }
                                 </div>
                             </div><!-- list-group-item -->
@@ -120,7 +120,9 @@
                     datatype: "json",
                     success: function (response) {
                         console.log(response);
-                        $(".list-group mailbox-list-group").html(response);
+                        $.each(response, function (index, value) {
+                            $("#messageTitle_" + value).css('font-style', 'italic');
+                        });
                     },
                     error: function (xhr) {
                         alert('İşlem başarısız!');

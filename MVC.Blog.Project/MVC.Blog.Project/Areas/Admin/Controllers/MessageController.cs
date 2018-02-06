@@ -21,14 +21,14 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         public ActionResult Inbox()
         {
             IEnumerable<Message> model = _uow.GetRepo<Message>()
-                .Where(x => x.IsDeleted == false);
+                .Where(x => x.IsDeleted == false)
+                .OrderByDescending(x => x.MessageDate);
 
             return View(model);
         }
         [HttpPost]
         public JsonResult Inbox(string Secilenler)
-        {
-           
+        {          
             string[] model = Secilenler.Split(' ');
             foreach (string item in model)
             {
@@ -36,7 +36,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                     .GetById(Convert.ToInt32(item))
                     .IsRead=true;              
             }
-            _uow.Commit();
+            //_uow.Commit();
             return Json(model);
         }
 

@@ -252,6 +252,7 @@
     <Content Include="Areas\Admin\Views\Message\Trash.cshtml" />
     <Content Include="Areas\Admin\Views\Comment\Listele.cshtml" />
     <Content Include="Areas\Admin\Views\Media\_FileManagerTable.cshtml" />
+    <Content Include="Areas\Admin\Views\Page\ContactPage.cshtml" />
     <None Include="Content\Adminv2\css\fonts\ionicons.eot" />
     <Content Include="Content\Adminv2\css\fonts\ionicons.eot_v=2.0.0%2523iefix" />
     <Content Include="Content\Adminv2\css\fonts\ionicons.svg" />
@@ -347,7 +348,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Base\" />
-    <Folder Include="Areas\Admin\Views\Page\" />
     <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
