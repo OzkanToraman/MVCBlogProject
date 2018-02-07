@@ -51,21 +51,24 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
 
         public JsonResult DeleteInbox(string Secilenler)
         {
-
-            string[] model = Secilenler.Split(' ');
-            Message msg = new Message();
-
-            foreach (var item in model)
+            if (Secilenler != "")
             {
-                msg = _uow.GetRepo<Message>()
-                    .GetById(Convert.ToInt32(item));
-                msg.IsDeleted = true;
-                msg.IsRead = true;
+                string[] model = Secilenler.Split(' ');
+                Message msg = new Message();
+
+                foreach (var item in model)
+                {
+                    msg = _uow.GetRepo<Message>()
+                        .GetById(Convert.ToInt32(item));
+                    msg.IsDeleted = true;
+                    msg.IsRead = true;
+                }
+
+                _uow.Commit();
+                return Json(model, JsonRequestBehavior.AllowGet);
             }
-
-            _uow.Commit();
-
-            return Json(model, JsonRequestBehavior.AllowGet);
+            else
+                return Json("Silinecek öge bulunamadı!",JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult DeleteTrash(string Secilenler)

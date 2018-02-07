@@ -5,8 +5,9 @@
         <h5>Profil Düzenle</h5>
     </div><!-- kt-pagetitle -->
 
+
     @using (Html.BeginForm("Guncelle", "User", FormMethod.Post, new { @enctype = "multipart/form-data" }))
-    {
+            {
         @Html.AntiForgeryToken()
         <div class="kt-pagebody">
             <div class="row">
@@ -18,11 +19,12 @@
                     </figure>
                     @*<button class="btn btn-outline-success btn-block mg-b-10" id="uploadImg">Yükle</button>*@
                 </div><!-- col-3 -->
+
                 <div class="col-md-8">
                     <div class="form-horizontal">
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.Kullanici.ProfilPic)
-                        @Html.HiddenFor(x=>x.Kullanici.Id)
+                        @Html.HiddenFor(x => x.Kullanici.Id)
                         <div class="form-group">
                             <label class="control-label col-md-2">Ad:</label>
                             <div class="col-md-10">
@@ -111,7 +113,7 @@
         //        $.ajax({
         //            url: "/User/Upload",
         //            data: form_data,
-        //            type: "GET",
+        //            type: "POST",
         //            datatype: "json",
         //            success: function (response) {
         //                alert(response);
@@ -120,12 +122,6 @@
         //    });
         //});
 
-
-
     </script>
-
-
-
-
 
 }

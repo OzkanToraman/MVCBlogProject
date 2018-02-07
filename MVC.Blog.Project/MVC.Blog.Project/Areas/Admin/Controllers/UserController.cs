@@ -32,7 +32,6 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         public ActionResult Ekle()
         {
             RolFill();
-
             return View();
         }
 
@@ -42,6 +41,7 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         {
             if (model != null)
             {
+                model.PasswordConfirm = model.Password;
                 model.ProfilPic = "/Media/Images/c3c5c1df-0964-4c38-820e-7412187c7117.jpg";
                 _uow.GetRepo<Kullanici>()
                     .Add(model);
@@ -84,10 +84,8 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
                 _uow.GetRepo<Kullanici>()
                     .Update(model.Kullanici);
 
-                if (_uow.Commit() > 0)
-                {
+                if (_uow.Commit() > 0)           
                     return RedirectToAction("Listele", "User");
-                }
             }
             return View();
         }
@@ -120,7 +118,6 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             }
             ViewBag.Roller = rolList;
             #endregion
-
         }
         MediaUpload UploadSaveToDatabase(HttpPostedFileBase img)
         {
@@ -135,13 +132,13 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
             return upload;
         }
 
-        
+        //[HttpPost]
         //public JsonResult Upload()
         //{
 
         //    string dosya = Request.Files[0].ToString();
 
-        //    return Json("",JsonRequestBehavior.AllowGet);
+        //    return Json("");
         //}
 
     }

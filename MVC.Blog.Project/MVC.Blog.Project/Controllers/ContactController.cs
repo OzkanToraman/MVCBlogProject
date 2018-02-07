@@ -39,8 +39,9 @@ namespace MVC.Blog.Project.Controllers
                         .FirstOrDefault();
                     if (k==null)
                     {
-                        model.Mesaj.MessageFrom = model.Mesaj.Email;
                         model.Mesaj.MessageDate = DateTime.Now;
+                        model.Mesaj.MessageFrom = model.Mesaj.Email;
+                        model.Mesaj.UserId = 3;
                     }
                     else
                     {
@@ -58,7 +59,10 @@ namespace MVC.Blog.Project.Controllers
                     }
                 }
             }
-            return View();
+            model.İletisim = _uow.GetRepo<Contact>()
+               .GetList()
+               .FirstOrDefault();
+            return View(model);
         }
 
     }
