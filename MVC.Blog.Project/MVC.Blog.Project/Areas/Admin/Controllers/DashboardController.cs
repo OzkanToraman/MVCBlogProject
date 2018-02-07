@@ -12,6 +12,8 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
     [UserAuthorize]
     public class DashboardController : BaseController
     {
+        public static int userId;
+
         public DashboardController(IUnitOfWork uow) : base(uow)
         {
         }
@@ -20,6 +22,11 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         public ActionResult Index()
         {
             ViewBag.UserName = HttpContext.User.Identity.Name;
+            userId =_uow
+                .GetRepo<Kullanici>()
+                .Where(x => x.Email == HttpContext.User.Identity.Name)
+                .FirstOrDefault()
+                .Id;
             IEnumerable<Message> messages  =  _uow
                                                 .GetRepo<Message>()
                                                 .Where(x => x.IsRead == false);

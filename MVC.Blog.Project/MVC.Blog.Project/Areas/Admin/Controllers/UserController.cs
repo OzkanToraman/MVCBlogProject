@@ -54,7 +54,8 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
 
         public ActionResult Guncelle(int id)
         {
-            Kullanici model = _uow
+            UserUpdateModel model = new UserUpdateModel();
+               model.Kullanici = _uow
                 .GetRepo<Kullanici>()
                 .Where(x => x.Id == id)
                 .FirstOrDefault();
@@ -66,22 +67,23 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Guncelle(UserUpdateModel model)
         {
-            if (model.kullanici != null)
+            if (model.Kullanici != null)
             {
-                if (model.ProfilePic != null)
+                if (model.ProfilPic != null)
                 {
                     #region UploadPhotoSaveToDatabase
                     MediaUpload m = new MediaUpload();
-                    m = UploadSaveToDatabase(model.ProfilePic);
+                    m = UploadSaveToDatabase(model.ProfilPic);
                     _uow.GetRepo<MediaUpload>()
                         .Add(m);
                     _uow.Commit();
                     #endregion
-                    model.kullanici.ProfilPic = m.Path.ToString();
+                    model.Kullanici.ProfilPic = m.Path.ToString();
                 }
 
                 _uow.GetRepo<Kullanici>()
-                    .Update(model.kullanici);
+                    .Update(model.Kullanici);
+
                 if (_uow.Commit() > 0)
                 {
                     return RedirectToAction("Listele", "User");
@@ -132,6 +134,15 @@ namespace MVC.Blog.Project.Areas.Admin.Controllers
 
             return upload;
         }
+
+        
+        //public JsonResult Upload()
+        //{
+
+        //    string dosya = Request.Files[0].ToString();
+
+        //    return Json("",JsonRequestBehavior.AllowGet);
+        //}
 
     }
 }

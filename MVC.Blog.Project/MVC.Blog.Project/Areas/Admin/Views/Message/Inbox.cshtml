@@ -52,7 +52,6 @@
                                                 <h6 class="tx-inverse tx-13 mg-b-2"><b>Kimden :</b>@item.MessageFrom</h6>
                                                 <span class="d-block tx-12"><b>Tarih :</b>@item.MessageDate.ToShortDateString()</span>
                                             </div>
-
                                         </div>
                                     </div>
 
@@ -123,7 +122,7 @@
                         $.each(response, function (index, value) {
                             $("#messageTitle_" + value).css('font-weight', 'normal');
                             $("#messageBody_" + value).css('font-weight', 'normal');
-                            $("#deleted_" + value).filter(":checkbox").prop("checked", false);
+                            $('input:checkbox').prop('checked', false);
                         });
                     },
                     error: function (xhr) {

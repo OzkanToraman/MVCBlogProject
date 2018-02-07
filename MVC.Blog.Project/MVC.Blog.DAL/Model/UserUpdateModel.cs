@@ -10,8 +10,7 @@ namespace MVC.Blog.DAL.Model
 {
     public class UserUpdateModel
     {
-        public int Id { get; set; }
-        public Kullanici kullanici{ get; set; }
-        public HttpPostedFileBase ProfilePic { get; set; }
+        public Kullanici Kullanici{ get; set; }
+        public HttpPostedFileBase ProfilPic { get; set; }
     }
 }

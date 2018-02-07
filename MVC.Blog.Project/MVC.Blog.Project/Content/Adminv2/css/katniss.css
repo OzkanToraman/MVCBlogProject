@@ -12371,6 +12371,7 @@ textarea.parsley-success:focus {
   align-items: center;
   background-color: #e9ecef;
   padding: 0 15px;
+  margin-top:-21px;
 }
 .kt-pagetitle h5 {
   color: #343a40;
