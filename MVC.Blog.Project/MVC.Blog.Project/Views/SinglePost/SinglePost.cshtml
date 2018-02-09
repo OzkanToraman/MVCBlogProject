@@ -21,10 +21,8 @@
                         </div>
                         <footer>
                             <span class="date-author"><i>@Model.Gonderi.PostDate</i></span>
-                            <span class="socialicons-post">
-                                <a href="#">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </a>
+                            <span class="socialicons-post" id="like">
+                                    <span>@Model.Gonderi.LikeCount</span>&nbsp;&nbsp;<button id="likeButton" class="btn btn-default">Beğen</button>
                             </span>
                         </footer>
                     </article>
@@ -146,7 +144,23 @@
                     }
                 })
             })
-        });
+
+            var likeCount = @Model.Gonderi.LikeCount;
+            $("#likeButton").click(function(){
+
+                $.ajax({
+                    url:"/SinglePost/Like?likeCount="+likeCount,
+                    type:"POST",
+                    dataType:"json",
+                    success:function(response){
+                        console.log(response);
+                        $("#like").html(
+                                            "<span>"+response+"</span>&nbsp;&nbsp;<button id='unlikeButton' class='btn btn-primary'>Beğen</button>"
+                                            );
+                    }
+                });
+            });
+       });
 
     </script>
 }

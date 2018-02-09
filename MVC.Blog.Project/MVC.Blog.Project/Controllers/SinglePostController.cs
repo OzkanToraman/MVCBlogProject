@@ -77,5 +77,11 @@ namespace MVC.Blog.Project.Controllers
             return Json(yorumlar, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult Like(int likeCount)
+        {
+            likeCount++;
+            return Json(likeCount);
+        }
     }
 }
