@@ -80,7 +80,7 @@ namespace MVC.Blog.Project.Controllers
         [HttpPost]
         public JsonResult Like(int likeCount)
         {
-            likeCount++;
+            //database işlemleri
             return Json(likeCount);
         }
     }

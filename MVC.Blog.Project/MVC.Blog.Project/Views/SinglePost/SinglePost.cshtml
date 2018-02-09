@@ -147,18 +147,26 @@
 
             var likeCount = @Model.Gonderi.LikeCount;
             $("#likeButton").click(function(){
-
+                var text = $("#likeButton").text();
+                if (text=="Beğen") {
+                    $(this).text("Beğenmekten Vazgeç");  
+                    likeCount++;
+                }
+                else {
+                    $(this).text("Beğen");
+                    likeCount--;
+                }
+                //ajax start//
                 $.ajax({
                     url:"/SinglePost/Like?likeCount="+likeCount,
                     type:"POST",
                     dataType:"json",
                     success:function(response){
                         console.log(response);
-                        $("#like").html(
-                                            "<span>"+response+"</span>&nbsp;&nbsp;<button id='unlikeButton' class='btn btn-primary'>Beğen</button>"
-                                            );
+                        $("#like span").text(response);
                     }
                 });
+                //end
             });
        });
 
